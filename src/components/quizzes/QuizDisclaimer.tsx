@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 
-export default function QuizDisclaimer() {
+interface QuizDisclaimerProps {
+  className?: string
+}
+
+export default function QuizDisclaimer({ className = '' }: QuizDisclaimerProps) {
   return (
     <section
-      className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-5 md:px-6"
+      className={`mt-8 rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-5 md:px-6 ${className}`.trim()}
       aria-labelledby="quiz-disclaimer-heading"
     >
       <h2 id="quiz-disclaimer-heading" className="sr-only">

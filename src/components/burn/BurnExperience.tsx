@@ -113,50 +113,62 @@ export default function BurnExperience() {
         <div className="mx-auto w-full max-w-[720px]">
           {showWriting && (
             <>
-              <WritingPaper
-                ref={textareaRef}
-                value={note}
-                onChange={setNote}
-                disabled={isBurnInProgress}
-              />
+              <div className="rounded-[28px] border border-border-card bg-bg-card/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:p-6">
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-text-muted">
+                  <span>Write</span>
+                  <span className="text-white/20" aria-hidden="true">→</span>
+                  <span>Burn</span>
+                  <span className="text-white/20" aria-hidden="true">→</span>
+                  <span>Breathe</span>
+                </div>
 
-              <div id="burn-note-privacy" className="mt-6">
-                <PrivacyNotice />
-              </div>
+                <WritingPaper
+                  ref={textareaRef}
+                  value={note}
+                  onChange={setNote}
+                  disabled={isBurnInProgress}
+                />
 
-              <div className="mt-8 flex flex-col items-center gap-4">
-                <button
-                  type="button"
-                  onClick={requestBurn}
-                  disabled={isNoteEmpty || isBurnInProgress}
-                  aria-disabled={isNoteEmpty || isBurnInProgress}
-                  aria-describedby={isNoteEmpty ? 'burn-button-hint' : undefined}
-                  className="btn-primary-glow inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fire-orange to-bright-orange px-8 py-3.5 text-base font-semibold text-white transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none sm:w-auto"
-                >
-                  <Flame className="h-5 w-5" aria-hidden="true" />
-                  Burn It
-                </button>
+                <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+                  <div id="burn-note-privacy" className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4">
+                    <PrivacyNotice />
+                  </div>
 
-                {isNoteEmpty && (
-                  <p id="burn-button-hint" className="sr-only">
-                    Enter text in the note before burning.
-                  </p>
-                )}
+                  <div className="flex flex-col items-center gap-4 lg:items-end">
+                    <button
+                      type="button"
+                      onClick={requestBurn}
+                      disabled={isNoteEmpty || isBurnInProgress}
+                      aria-disabled={isNoteEmpty || isBurnInProgress}
+                      aria-describedby={isNoteEmpty ? 'burn-button-hint' : undefined}
+                      className="btn-primary-glow inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fire-orange to-bright-orange px-8 py-3.5 text-base font-semibold text-white transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none sm:w-auto"
+                    >
+                      <Flame className="h-5 w-5" aria-hidden="true" />
+                      Burn It
+                    </button>
 
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setClearDialogOpen(true)}
-                    disabled={isNoteEmpty || isBurnInProgress}
-                    className="text-sm text-text-muted transition-colors hover:text-text-main disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    Clear the note
-                  </button>
+                    {isNoteEmpty && (
+                      <p id="burn-button-hint" className="sr-only">
+                        Enter text in the note before burning.
+                      </p>
+                    )}
 
-                  <FireSoundToggle
-                    disabled={isBurnInProgress}
-                    onChange={setFireSoundEnabled}
-                  />
+                    <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-end">
+                      <button
+                        type="button"
+                        onClick={() => setClearDialogOpen(true)}
+                        disabled={isNoteEmpty || isBurnInProgress}
+                        className="text-sm text-text-muted transition-colors hover:text-text-main disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        Clear the note
+                      </button>
+
+                      <FireSoundToggle
+                        disabled={isBurnInProgress}
+                        onChange={setFireSoundEnabled}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
@@ -183,7 +195,7 @@ export default function BurnExperience() {
         </div>
 
         {(showWriting || stage === 'complete') && (
-          <footer className="mx-auto mt-16 max-w-xl border-t border-white/[0.06] pt-8 text-center">
+          <footer className="mx-auto mt-10 max-w-xl rounded-2xl border border-white/[0.08] bg-white/[0.02] px-5 py-5 text-center">
             <p className="text-sm text-text-muted">
               Let It Burn is a reflection tool, not emergency support.
             </p>

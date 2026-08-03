@@ -103,7 +103,6 @@ function QuizzesPageContent() {
         <QuizPrivacyNotice />
         <QuizFaq />
         <QuizSupportPanel />
-        <QuizDisclaimer />
       </div>
     </main>
   )

@@ -48,19 +48,19 @@ function PricingPageContent() {
         <PricingConfigurationWarning />
         <PricingHero />
         <FreeCoreSection />
+        <PricingComparisonTable />
         <UpgradeFilters
           category={category}
           onCategoryChange={setCategory}
           resultLabel={resultLabel}
         />
         <UpgradeCatalogue products={filteredProducts} />
-        <PricingComparisonTable />
         <RelaxationBundleSection />
         <PurchaseProcess />
         <PricingPrinciples />
-        <PricingDisclosure />
         <PricingFaq />
         <PricingSupportPanel />
+        <PricingDisclosure />
       </div>
     </main>
   )

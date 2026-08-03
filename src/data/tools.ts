@@ -33,9 +33,9 @@ export const tools: ToolCardData[] = [
   },
   {
     id: 'sounds',
-    title: 'White Noise',
+    title: 'Calming Sounds',
     description:
-      'Calming sounds for sleep, focus, reflection, or simply feeling better.',
+      'Steady soundscapes for sleep, focus, reflection, or simply softening the room.',
     linkText: 'Play Sounds',
     href: '/sounds',
     icon: AudioLines,

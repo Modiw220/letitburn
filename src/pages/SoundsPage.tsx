@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
-import AdPlaceholder from '../components/advertising/AdPlaceholder'
 import FeaturedSoundPlayer from '../components/sounds/FeaturedSoundPlayer'
 import PersistentMiniPlayer from '../components/sounds/PersistentMiniPlayer'
 import PremiumSoundPreview from '../components/sounds/PremiumSoundPreview'
@@ -117,19 +116,12 @@ function SoundsPageContent() {
             <KeyboardShortcutsButton onOpen={() => setShortcutsOpen(true)} />
           </div>
 
-          <div className="relative xl:grid xl:grid-cols-[1fr_280px] xl:gap-8">
-            <div>
-              <SoundLibrary />
-              <AdPlaceholder placement="horizontal" />
-              <AdPlaceholder placement="compact" />
-              <PremiumSoundPreview />
+          <div className="relative">
+            <SoundLibrary />
+            <PremiumSoundPreview />
+            <div className="mt-12 grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
               <SoundSupportPanel />
               <SoundPrivacyNotice />
-            </div>
-            <div className="hidden xl:block">
-              <div className="sticky top-24">
-                <AdPlaceholder placement="sidebar" />
-              </div>
             </div>
           </div>
         </div>

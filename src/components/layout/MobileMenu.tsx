@@ -1,5 +1,4 @@
 import { Menu, X } from 'lucide-react'
-import ThemeToggle from '../common/ThemeToggle'
 import { NavItem } from './NavItem'
 
 export interface NavLink {
@@ -20,15 +19,11 @@ export const navLinks: NavLink[] = [
 interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
-  theme: 'dark' | 'light'
-  onToggleTheme: () => void
 }
 
 export default function MobileMenu({
   isOpen,
   onClose,
-  theme,
-  onToggleTheme,
 }: MobileMenuProps) {
   return (
     <>
@@ -48,22 +43,26 @@ export default function MobileMenu({
         aria-label="Mobile navigation"
         aria-hidden={!isOpen}
       >
-        <ul className="content-container flex flex-col gap-1 py-6">
+        <div className="content-container border-b border-border-card py-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+            Move gently
+          </p>
+          <p className="mt-2 max-w-xs text-sm leading-relaxed text-text-muted">
+            Choose the tool that fits this moment. Nothing here requires an account.
+          </p>
+        </div>
+
+        <ul className="content-container flex flex-col gap-1 py-4">
           {navLinks.map((link) => (
             <li key={link.href}>
               <NavItem
                 link={link}
                 onNavigate={onClose}
-                className="flex items-center gap-2 rounded-lg px-3 py-3 text-base font-medium text-text-main transition-colors hover:bg-white/5"
+                className="flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-text-main transition-colors hover:bg-white/5"
               />
             </li>
           ))}
         </ul>
-
-        <div className="content-container flex items-center justify-between border-t border-border-card py-4">
-          <span className="text-sm text-text-muted">Appearance</span>
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-        </div>
       </nav>
     </>
   )
@@ -78,13 +77,13 @@ export function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
   return (
     <button
       type="button"
-      className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-text-muted transition-colors hover:text-text-main lg:hidden"
+      className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-text-muted transition-colors hover:text-text-main lg:hidden"
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-controls="mobile-nav"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
     >
-      <span>Menu</span>
+      <span className="hidden sm:inline">Menu</span>
       {isOpen ? (
         <X className="h-5 w-5" strokeWidth={1.75} />
       ) : (

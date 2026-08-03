@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Lock } from 'lucide-react'
 
 const premiumItems = [
@@ -21,7 +22,7 @@ const premiumItems = [
 
 export default function PremiumPreview() {
   return (
-    <section className="mt-12 opacity-80" aria-labelledby="premium-preview-heading">
+    <section className="mt-12 opacity-85" aria-labelledby="premium-preview-heading">
       <div className="mb-6 flex items-center gap-3">
         <h2
           id="premium-preview-heading"
@@ -34,7 +35,7 @@ export default function PremiumPreview() {
         </span>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         {premiumItems.map((item) => (
           <article
             key={item.title}
@@ -50,6 +51,13 @@ export default function PremiumPreview() {
             </p>
           </article>
         ))}
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-text-muted">
+        <span>These stay secondary to the free workspace.</span>
+        <Link to="/pricing" className="text-calm-cyan hover:underline">
+          See optional upgrades
+        </Link>
       </div>
     </section>
   )

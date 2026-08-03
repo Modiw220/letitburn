@@ -37,9 +37,9 @@ function SupportPageContent() {
 
       <div className="content-container relative z-[1] mx-auto max-w-[1200px]">
         <SupportHero />
-        <MissionSection />
-        <ImpactGrid />
         <DonationSection />
+        <ImpactGrid />
+        <MissionSection />
         <DonationTransparency />
         <OtherWaysToSupport />
         <FinalSupportMessage />

@@ -1,4 +1,5 @@
 import { Brain, CircleDot } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 export default function QuizzesHero() {
@@ -9,7 +10,10 @@ export default function QuizzesHero() {
   }
 
   return (
-    <section className="relative text-center" aria-labelledby="quizzes-hero-heading">
+    <section
+      className="relative rounded-[28px] border border-border-card bg-bg-card/45 px-5 py-8 text-center md:px-8 md:py-10"
+      aria-labelledby="quizzes-hero-heading"
+    >
       <div
         className={`quizzes-hero-visual mx-auto mb-8 flex h-36 w-36 items-center justify-center md:h-44 md:w-44 ${
           reducedMotion ? 'quizzes-hero-visual--reduced' : ''
@@ -57,6 +61,25 @@ export default function QuizzesHero() {
         >
           How It Works
         </button>
+      </div>
+
+      <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-calm-cyan/16 bg-calm-cyan/6 p-4 text-left md:p-5">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-calm-cyan">
+              New here?
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-text-muted">
+              Start with the Emotional Wellbeing Check-In if you want the gentlest first step.
+            </p>
+          </div>
+          <Link
+            to="/quizzes/emotional-wellbeing-check-in"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-calm-cyan/35 bg-calm-cyan/10 px-5 py-2.5 text-sm font-semibold text-calm-cyan"
+          >
+            Start there
+          </Link>
+        </div>
       </div>
     </section>
   )

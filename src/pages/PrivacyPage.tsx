@@ -5,7 +5,6 @@ import MobilePrivacyNavigation from '../components/privacy/MobilePrivacyNavigati
 import PrivacyAccordion from '../components/privacy/PrivacyAccordion'
 import PrivacyConfigurationWarning from '../components/privacy/PrivacyConfigurationWarning'
 import PrivacyHero from '../components/privacy/PrivacyHero'
-import PrivacyRightSidebar from '../components/privacy/PrivacyRightSidebar'
 import PrivacySummary from '../components/privacy/PrivacySummary'
 import PrivacyTableOfContents from '../components/privacy/PrivacyTableOfContents'
 import PrivacyTrustStrip from '../components/privacy/PrivacyTrustStrip'
@@ -98,7 +97,7 @@ function PrivacyPageContent() {
           onNavigate={navigateToSection}
         />
 
-        <div className="privacy-layout mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[260px_minmax(0,1fr)_280px] xl:gap-10">
+        <div className="privacy-layout mt-8 grid grid-cols-1 gap-8 xl:grid-cols-[260px_minmax(0,1fr)] xl:gap-10">
           <PrivacyTableOfContents
             activeSection={activeSection}
             onNavigate={navigateToSection}
@@ -113,14 +112,8 @@ function PrivacyPageContent() {
               liveMessage={liveMessage}
             />
 
-            <div className="privacy-mobile-trust mt-10 lg:hidden">
-              <PrivacyRightSidebar onScrollTo={navigateToSection} layout="stack" />
-            </div>
-
             <PrivacyTrustStrip />
           </div>
-
-          <PrivacyRightSidebar onScrollTo={navigateToSection} layout="sidebar" />
         </div>
       </div>
     </main>

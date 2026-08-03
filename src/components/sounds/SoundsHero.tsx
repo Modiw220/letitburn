@@ -6,7 +6,10 @@ export default function SoundsHero() {
   }
 
   return (
-    <section className="relative text-center" aria-labelledby="sounds-hero-heading">
+    <section
+      className="relative rounded-[28px] border border-border-card bg-bg-card/40 px-5 py-8 text-center md:px-8 md:py-10"
+      aria-labelledby="sounds-hero-heading"
+    >
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-calm-cyan">
         Calming Sound Space
       </p>
@@ -42,6 +45,33 @@ export default function SoundsHero() {
       >
         Browse sounds
       </button>
+
+      <div className="mt-8 grid gap-3 text-left md:grid-cols-3">
+        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+          <p className="text-sm font-semibold text-text-main">
+            For a hard-to-settle room
+          </p>
+          <p className="mt-2 text-sm text-text-muted">
+            Start with rain, waves, or a steady noise bed.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+          <p className="text-sm font-semibold text-text-main">
+            For focus without pressure
+          </p>
+          <p className="mt-2 text-sm text-text-muted">
+            Choose one sound and let it stay simple. No mixer needed.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+          <p className="text-sm font-semibold text-text-main">
+            For privacy first
+          </p>
+          <p className="mt-2 text-sm text-text-muted">
+            Preferences stay on this device. The sounds do not need an account.
+          </p>
+        </div>
+      </div>
     </section>
   )
 }

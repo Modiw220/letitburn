@@ -39,17 +39,43 @@ const FeaturedSoundPlayer = forwardRef<HTMLElement>(function FeaturedSoundPlayer
       aria-labelledby="featured-player-heading"
     >
       {!selectedSound ? (
-        <div className="flex flex-col items-center py-10 text-center md:py-14">
-          <SoundWaveAnimation className="mb-6 h-8 text-text-muted/40" />
-          <h2
-            id="featured-player-heading"
-            className="font-heading text-2xl font-semibold text-text-main md:text-3xl"
-          >
-            Choose a sound to begin.
-          </h2>
-          <p className="mt-2 max-w-md text-sm text-text-muted md:text-base">
-            Select any sound below and it will appear here.
-          </p>
+        <div className="grid gap-6 py-8 text-left md:py-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-calm-cyan/20 bg-calm-cyan/8 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-calm-cyan">
+              Ready when you are
+            </div>
+            <h2
+              id="featured-player-heading"
+              className="mt-4 font-heading text-2xl font-semibold text-text-main md:text-3xl"
+            >
+              Choose a sound to begin.
+            </h2>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-text-muted md:text-base">
+              Start with one steady sound. Keep it simple first, then decide whether you want to stay,
+              stop, or switch.
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+                <p className="text-sm font-semibold text-text-main">Best first picks</p>
+                <p className="mt-2 text-sm text-text-muted">
+                  Rain, waves, or brown noise work well when you do not want to choose for long.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+                <p className="text-sm font-semibold text-text-main">What happens next</p>
+                <p className="mt-2 text-sm text-text-muted">
+                  Playback, timer, mute, and volume controls appear here after you choose.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[24px] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(107,167,217,0.12),transparent_60%)] p-6 text-center">
+            <SoundWaveAnimation className="mx-auto mb-6 h-8 text-text-muted/40" />
+            <p className="text-sm text-text-muted">
+              Select any sound below and it will expand into this player.
+            </p>
+          </div>
         </div>
       ) : (
         <>

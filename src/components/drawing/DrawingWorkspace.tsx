@@ -350,14 +350,26 @@ export default function DrawingWorkspace() {
         </div>
       </header>
 
-      <div className="mb-6 flex justify-center">
-        <ModeSelector mode={mode} onChange={requestModeChange} />
-      </div>
+      <section className="mb-6 rounded-[24px] border border-border-card bg-bg-card/45 p-4 md:p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-purple">
+              Choose a mode
+            </p>
+            <p className="mt-2 text-sm text-text-muted">
+              Pick a blank canvas or a calming template, then settle into the workspace below.
+            </p>
+          </div>
+          <ModeSelector mode={mode} onChange={requestModeChange} />
+        </div>
 
-      <CreativePrompt
-        prompt={prompt}
-        onRefresh={() => setPrompt(randomPrompt())}
-      />
+        <div className="mt-5">
+          <CreativePrompt
+            prompt={prompt}
+            onRefresh={() => setPrompt(randomPrompt())}
+          />
+        </div>
+      </section>
 
       <section className="drawing-workspace rounded-[20px] border border-border-card bg-bg-card/80 p-4 shadow-[0_0_40px_rgba(154,104,245,0.08)] md:p-6">
         {(mobilePanel === 'colors' || mobilePanel === 'sizes') && (
@@ -479,7 +491,7 @@ export default function DrawingWorkspace() {
         </div>
       </section>
 
-      <div className="mt-8">
+      <div className="mt-6 rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-5">
         <DrawingPrivacyNotice />
       </div>
 

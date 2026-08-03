@@ -1,20 +1,15 @@
+import PageSectionIntro from '../common/PageSectionIntro'
 import { sounds } from '../../data/sounds'
 import SoundCard from './SoundCard'
 
 export default function SoundLibrary() {
   return (
     <section id="sound-library" className="mt-14 md:mt-16" aria-labelledby="sound-library-heading">
-      <div className="max-w-2xl">
-        <h2
-          id="sound-library-heading"
-          className="font-heading text-2xl font-semibold text-text-main md:text-3xl"
-        >
-          Choose your atmosphere.
-        </h2>
-        <p className="mt-2 text-sm text-text-muted md:text-base">
-          Free sounds play one at a time.
-        </p>
-      </div>
+      <PageSectionIntro
+        title="Choose your atmosphere."
+        description="Free sounds play one at a time so the page stays calm and the decision stays light."
+        className="max-w-2xl"
+      />
 
       <p className="mt-4 text-sm text-text-muted">
         Free listening supports one sound at a time.{' '}

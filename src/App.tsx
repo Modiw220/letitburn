@@ -11,6 +11,8 @@ import SupportPage from './pages/SupportPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
 import PricingPage from './pages/PricingPage'
+import SafetyResourcesPage from './pages/SafetyResourcesPage'
+import ContactPage from './pages/ContactPage'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
@@ -84,6 +86,18 @@ function App() {
           path: '/pricing',
           element: (
             <PricingPage theme={theme} onToggleTheme={toggleTheme} />
+          ),
+        },
+        {
+          path: '/safety-resources',
+          element: (
+            <SafetyResourcesPage theme={theme} onToggleTheme={toggleTheme} />
+          ),
+        },
+        {
+          path: '/contact',
+          element: (
+            <ContactPage theme={theme} onToggleTheme={toggleTheme} />
           ),
         },
         {

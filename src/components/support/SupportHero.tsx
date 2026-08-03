@@ -18,12 +18,11 @@ export default function SupportHero() {
           Help keep this quiet place open.
         </h1>
         <p className="mt-5 text-base font-medium leading-relaxed text-text-main md:text-lg">
-          Not everyone has someone to talk to at 2 AM. This space helps people let something out
-          privately.
+          Keep the private tools available before the donation question ever appears.
         </p>
-        <p className="mt-4 text-sm leading-relaxed text-text-muted md:text-base">
-          Let It Burn was created to give people a private moment to write, release, breathe, draw,
-          listen, or reflect without needing an account or explaining themselves first.
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-text-muted md:text-base">
+          Let It Burn was built for quiet moments: to write, release, breathe, draw, listen, or
+          reflect without explaining yourself first.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">

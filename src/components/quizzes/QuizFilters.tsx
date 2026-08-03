@@ -20,7 +20,21 @@ export default function QuizFilters({
   onSearchClear,
 }: QuizFiltersProps) {
   return (
-    <div>
+    <div className="rounded-[24px] border border-border-card bg-bg-card/45 p-4 md:p-5">
+      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-calm-cyan">
+            Filter gently
+          </p>
+          <p className="mt-2 text-sm text-text-muted">
+            Browse by mood, topic, or whatever feels easiest to start with.
+          </p>
+        </div>
+        <p className="text-sm text-text-muted" aria-live="polite" aria-atomic="true">
+          {resultLabel}
+        </p>
+      </div>
+
       <div
         className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="group"
@@ -51,10 +65,6 @@ export default function QuizFilters({
         onChange={onSearchChange}
         onClear={onSearchClear}
       />
-
-      <p className="mt-4 text-sm text-text-muted" aria-live="polite" aria-atomic="true">
-        {resultLabel}
-      </p>
     </div>
   )
 }

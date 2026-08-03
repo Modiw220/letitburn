@@ -34,8 +34,8 @@ export default function Header({ theme, onToggleTheme }: HeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-bg-main/90 backdrop-blur-md">
-        <div className="content-container flex h-[78px] items-center justify-between gap-4">
-          <Logo />
+        <div className="content-container flex h-[72px] items-center justify-between gap-3 sm:h-[78px] sm:gap-4">
+          <Logo className="max-w-[180px] sm:max-w-none" />
 
           <nav
             className="hidden items-center gap-8 lg:flex"
@@ -50,10 +50,8 @@ export default function Header({ theme, onToggleTheme }: HeaderProps) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden lg:block">
-              <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-            </div>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
 
             <span
               className="hidden h-6 w-px bg-white/15 lg:block"
@@ -71,8 +69,6 @@ export default function Header({ theme, onToggleTheme }: HeaderProps) {
       <MobileMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
-        theme={theme}
-        onToggleTheme={onToggleTheme}
       />
     </>
   )

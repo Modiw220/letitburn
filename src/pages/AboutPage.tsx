@@ -5,12 +5,10 @@ import AboutClosingSection from '../components/about/AboutClosingSection'
 import AboutHero from '../components/about/AboutHero'
 import AboutSafetySection from '../components/about/AboutSafetySection'
 import AboutToolsGrid from '../components/about/AboutToolsGrid'
-import AnonymousReleaseSection from '../components/about/AnonymousReleaseSection'
 import FundingTransparency from '../components/about/FundingTransparency'
 import PlatformBoundaries from '../components/about/PlatformBoundaries'
 import PlatformDefinition from '../components/about/PlatformDefinition'
 import PrivacyPhilosophy from '../components/about/PrivacyPhilosophy'
-import ProductPrinciples from '../components/about/ProductPrinciples'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { buildAboutPageStructuredData } from '../utils/aboutStructuredData'
@@ -43,14 +41,18 @@ function AboutPageContent() {
 
       <div className="content-container relative z-[1] mx-auto max-w-[1200px]">
         <AboutHero />
-        <PlatformDefinition />
-        <PlatformBoundaries />
-        <AnonymousReleaseSection />
-        <PrivacyPhilosophy />
-        <AboutToolsGrid />
-        <ProductPrinciples />
-        <FundingTransparency />
-        <AboutSafetySection />
+        <div className="mt-16 rounded-[28px] border border-border-card bg-bg-card/40 px-5 py-6 md:px-8 md:py-8">
+          <PlatformDefinition />
+          <PlatformBoundaries />
+        </div>
+        <div className="mt-10 rounded-[28px] border border-border-card bg-bg-card/28 px-5 py-6 md:px-8 md:py-8">
+          <PrivacyPhilosophy />
+          <AboutToolsGrid />
+        </div>
+        <div className="mt-10 rounded-[28px] border border-border-card bg-bg-card/20 px-5 py-6 md:px-8 md:py-8">
+          <FundingTransparency />
+          <AboutSafetySection />
+        </div>
         <AboutClosingSection />
       </div>
     </main>
