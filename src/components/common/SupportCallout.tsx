@@ -1,5 +1,6 @@
 import { Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import type { PageArchetype } from '../../utils/pageArchetypes'
 
 interface SupportCalloutProps {
   id?: string
@@ -9,6 +10,7 @@ interface SupportCalloutProps {
   ctaHref?: string
   className?: string
   secondaryText?: string
+  variant?: PageArchetype
 }
 
 export default function SupportCallout({
@@ -19,10 +21,12 @@ export default function SupportCallout({
   ctaHref = '/support',
   className = '',
   secondaryText,
+  variant = 'discovery',
 }: SupportCalloutProps) {
   return (
     <section
       id={id}
+      data-surface={variant}
       className={`rounded-2xl border border-support-gold/20 bg-[linear-gradient(180deg,rgba(246,185,59,0.08),rgba(15,27,44,0.7))] px-6 py-7 text-center md:px-10 ${className}`.trim()}
     >
       <h2 className="font-heading text-xl font-semibold text-text-main md:text-2xl">

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { PageArchetype } from '../../utils/pageArchetypes'
 
 interface PageSectionIntroProps {
   eyebrow?: string
@@ -7,6 +8,7 @@ interface PageSectionIntroProps {
   align?: 'left' | 'center'
   actions?: ReactNode
   className?: string
+  variant?: PageArchetype
 }
 
 export default function PageSectionIntro({
@@ -16,11 +18,15 @@ export default function PageSectionIntro({
   align = 'left',
   actions,
   className = '',
+  variant = 'discovery',
 }: PageSectionIntroProps) {
   const isCenter = align === 'center'
 
   return (
-    <div className={`${isCenter ? 'text-center' : ''} ${className}`.trim()}>
+    <div
+      data-surface={variant}
+      className={`${isCenter ? 'text-center' : ''} ${className}`.trim()}
+    >
       {eyebrow && (
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-calm-cyan">
           {eyebrow}
