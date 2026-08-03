@@ -1,0 +1,47 @@
+import { Headphones } from 'lucide-react'
+
+export default function SoundsHero() {
+  const scrollToLibrary = () => {
+    document.getElementById('sound-library')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <section className="relative text-center" aria-labelledby="sounds-hero-heading">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-calm-cyan">
+        Calming Sound Space
+      </p>
+      <h1
+        id="sounds-hero-heading"
+        className="sounds-intro-heading mx-auto mt-3 max-w-3xl font-heading text-3xl font-semibold leading-tight text-text-main md:text-4xl lg:text-[2.75rem]"
+      >
+        Find a sound and let the world soften.
+      </h1>
+      <p className="mx-auto mt-4 max-w-2xl text-sm text-text-muted md:text-base">
+        Choose a steady background sound for rest, focus, reflection, or a quieter moment.
+      </p>
+
+      <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-text-muted">
+        <span className="inline-flex items-center gap-1.5">
+          <Headphones className="h-4 w-4 text-calm-cyan" aria-hidden="true" />
+          No account needed
+        </span>
+        <span aria-hidden="true" className="hidden sm:inline">
+          ·
+        </span>
+        <span>Play one sound at a time</span>
+        <span aria-hidden="true" className="hidden sm:inline">
+          ·
+        </span>
+        <span>Your settings stay on this device</span>
+      </div>
+
+      <button
+        type="button"
+        className="mt-8 min-h-[44px] rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-text-main transition-colors hover:bg-white/[0.08]"
+        onClick={scrollToLibrary}
+      >
+        Browse sounds
+      </button>
+    </section>
+  )
+}
