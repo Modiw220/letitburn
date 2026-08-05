@@ -1,6 +1,6 @@
-Optional fire crackling audio for the burn animation.
-Place your audio file at:
+Burn audio for the paper animation.
+Current asset path:
 
-public/audio/fire-crackle.mp3
+public/audio/burn-paper.mp3
 
-The page works normally when this file is missing.
+You can replace it with another licensed file if needed, as long as the hook path matches.

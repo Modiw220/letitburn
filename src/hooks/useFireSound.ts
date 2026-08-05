@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-const FIRE_SOUND_PATH = '/audio/fire-crackle.mp3'
+const FIRE_SOUND_PATH = '/audio/burn-paper.mp3'
 
 export function useFireSound() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -18,6 +18,7 @@ export function useFireSound() {
         const audio = new Audio(FIRE_SOUND_PATH)
         audio.volume = 0.25
         audio.loop = false
+        audio.preload = 'auto'
         audioRef.current = audio
       }
 

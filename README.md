@@ -52,10 +52,10 @@ Recommended image: paper note burning in a fire bowl, dark mountains and water a
 
 ## Optional fire sound
 
-Place a low-volume crackling audio file at:
+Place a low-volume paper-burning audio file at:
 
 ```
-public/audio/fire-crackle.mp3
+public/audio/burn-paper.mp3
 ```
 
 Users can enable it via the “Fire sound” toggle on the Burn Your Thoughts page. Only the sound preference is stored in `localStorage` — never note content. The page works normally if the file is missing.
