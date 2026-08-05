@@ -539,6 +539,103 @@
     }
   }
 
+  .hero-burning-note-visual {
+    position: relative;
+  }
+
+  .hero-burning-note-glow {
+    background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.28), transparent 68%);
+    animation: hero-burning-note-glow 4s ease-in-out infinite;
+  }
+
+  .hero-burning-note-stage {
+    animation: hero-burning-note-float 5s ease-in-out infinite;
+  }
+
+  .hero-burning-note-img {
+    mix-blend-mode: screen;
+    animation: hero-burning-note-flicker 2.8s ease-in-out infinite;
+  }
+
+  .hero-burning-note-ember {
+    position: absolute;
+    z-index: 2;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-bright-orange);
+    box-shadow: 0 0 6px rgba(255, 122, 47, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    animation: hero-burning-note-ember-rise 3.6s ease-out infinite;
+  }
+
+  .hero-burning-note-ember--1 { top: 18%; left: 46%; animation-delay: 0s; }
+  .hero-burning-note-ember--2 { top: 24%; left: 54%; animation-delay: 0.8s; }
+  .hero-burning-note-ember--3 { top: 20%; left: 50%; animation-delay: 1.6s; width: 3px; height: 3px; }
+  .hero-burning-note-ember--4 { top: 28%; left: 42%; animation-delay: 2.2s; }
+  .hero-burning-note-ember--5 { top: 16%; left: 58%; animation-delay: 2.9s; width: 3px; height: 3px; }
+  .hero-burning-note-ember--6 { top: 22%; left: 48%; animation-delay: 3.4s; }
+
+  @keyframes hero-burning-note-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes hero-burning-note-flicker {
+    0%, 100% {
+      filter: brightness(1) saturate(1);
+      transform: scale(1);
+    }
+    25% {
+      filter: brightness(1.1) saturate(1.08);
+      transform: scale(1.008);
+    }
+    50% {
+      filter: brightness(0.96) saturate(1.04);
+      transform: scale(0.996);
+    }
+    75% {
+      filter: brightness(1.06) saturate(1.1);
+      transform: scale(1.004);
+    }
+  }
+
+  @keyframes hero-burning-note-glow {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+
+  @keyframes hero-burning-note-ember-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(1);
+    }
+    15% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-72px) scale(0.25);
+    }
+  }
+
+  .hero-burning-note-visual--reduced .hero-burning-note-stage,
+  .hero-burning-note-visual--reduced .hero-burning-note-img,
+  .hero-burning-note-visual--reduced .hero-burning-note-glow,
+  .hero-burning-note-visual--reduced .hero-burning-note-ember {
+    animation: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-burning-note-stage,
+    .hero-burning-note-img,
+    .hero-burning-note-glow,
+    .hero-burning-note-ember {
+      animation: none !important;
+    }
+  }
+
   .decorative-heart-line {
     position: absolute;
     right: 24px;
