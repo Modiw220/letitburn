@@ -26,3 +26,6 @@ AGENTS.md
 AGENT_HANDOFF.md
 .cursor/mcp.json
 .cursor/rules/
+.playwright-mcp/
+.superpowers/
+output/
