@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 AGENTS.md
 AGENT_HANDOFF.md
+.cursor/mcp.json
+.cursor/rules/

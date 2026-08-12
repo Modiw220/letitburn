@@ -25,9 +25,9 @@ export default function PrivacyRightsSection() {
       ))}
 
       <p>
-        To submit a privacy request, use the verified privacy contact method when it is available.
-        Identity verification may be required, and some information may need to be retained for legal
-        reasons.
+        To submit a privacy request, use the privacy request form in the Contact section when you
+        are signed in, or email the verified privacy contact. Identity verification may be required,
+        and some information may need to be retained for legal reasons.
       </p>
     </div>
   )

@@ -1,4 +1,4 @@
-import { EMOTIONAL_WELLBEING_SCORE_RANGES } from '../data/emotionalWellbeingResultRanges'
+import { getScoreRangesForQuiz } from '../data/quizScoreRanges'
 import type { QuizAnswer, QuizDefinition } from '../types/quizEngine'
 import type { BasicQuizResult } from '../types/quizResults'
 import { calculateDimensionScores } from '../utils/calculateDimensionScores'
@@ -22,7 +22,7 @@ export function computeBasicResult(
   try {
     const totalScore = calculateTotalScore(answers)
     const maximumScore = definition.questions.length * 4
-    const range = findScoreRange(totalScore, EMOTIONAL_WELLBEING_SCORE_RANGES)
+    const range = findScoreRange(totalScore, getScoreRangesForQuiz(definition.id))
 
     return {
       quizId: definition.id,

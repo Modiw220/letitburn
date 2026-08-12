@@ -1,8 +1,13 @@
 import type { DimensionInterpretation } from '../types/quizResults'
 
-export function interpretDimensionScore(score: number): DimensionInterpretation {
-  if (score <= 3) return 'needs-attention'
-  if (score <= 8) return 'mixed'
+export function interpretDimensionScore(
+  score: number,
+  maximumScore = 12,
+): DimensionInterpretation {
+  if (maximumScore <= 0) return 'mixed'
+  const ratio = score / maximumScore
+  if (ratio <= 0.25) return 'needs-attention'
+  if (ratio <= 0.66) return 'mixed'
   return 'supportive'
 }
 

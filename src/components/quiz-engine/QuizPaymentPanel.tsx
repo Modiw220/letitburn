@@ -5,6 +5,7 @@ import PaymentVerification from './PaymentVerification'
 
 export default function QuizPaymentPanel() {
   const {
+    definition,
     paymentStatus,
     paymentError,
     isMockPayment,
@@ -24,12 +25,12 @@ export default function QuizPaymentPanel() {
       </h2>
 
       <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
-        <p className="font-medium text-text-main">Emotional Wellbeing Full Reflection Report</p>
+        <p className="font-medium text-text-main">{definition.title} Full Reflection Report</p>
         <ul className="mt-4 space-y-2 text-sm text-text-muted">
           <li>One-time payment · {QUIZ_REPORT_PRICE.display}</li>
           <li>Free result remains available</li>
           <li>No subscription</li>
-          <li>Four-area breakdown, prompts, calming exercises, PDF, optional email</li>
+          <li>Dimension breakdown, prompts, calming exercises, PDF, optional email</li>
         </ul>
       </div>
 

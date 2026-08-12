@@ -6,6 +6,7 @@ import type {
   VerifyUpgradePurchaseInput,
 } from '../types/upgrades'
 import { getUpgradeById } from '../config/upgradePricing'
+import { invokeFunction } from '../lib/invokeFunction'
 
 export class UnavailableUpgradeCheckoutService implements UpgradeCheckoutService {
   async createCheckoutSession(_input: CreateUpgradeCheckoutInput): Promise<UpgradeCheckoutSession> {
@@ -57,34 +58,22 @@ export class MockUpgradeCheckoutService implements UpgradeCheckoutService {
 
 export class PaymentProviderUpgradeService implements UpgradeCheckoutService {
   async createCheckoutSession(input: CreateUpgradeCheckoutInput): Promise<UpgradeCheckoutSession> {
-    const response = await fetch('/api/upgrades/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
+    return invokeFunction<UpgradeCheckoutSession>('upgrade-checkout', input, {
+      requireAuth: true,
     })
-
-    if (!response.ok) {
-      throw new Error('Unable to create upgrade checkout session.')
-    }
-
-    return response.json() as Promise<UpgradeCheckoutSession>
   }
 
   async verifyPurchase(input: VerifyUpgradePurchaseInput): Promise<UpgradePurchaseVerification> {
-    const response = await fetch('/api/upgrades/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-    })
-
-    if (!response.ok) {
+    try {
+      return await invokeFunction<UpgradePurchaseVerification>('upgrade-verify', input, {
+        requireAuth: true,
+      })
+    } catch {
       return {
         verified: false,
         errorMessage: 'We could not verify the upgrade purchase.',
       }
     }
-
-    return response.json() as Promise<UpgradePurchaseVerification>
   }
 }
 

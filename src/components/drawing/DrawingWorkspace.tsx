@@ -344,7 +344,7 @@ export default function DrawingWorkspace() {
             No artistic skill needed
           </span>
           <span aria-hidden="true">·</span>
-          <span>No account required</span>
+          <span>No account needed for free drawing</span>
           <span aria-hidden="true">·</span>
           <span>Your artwork stays private</span>
         </div>

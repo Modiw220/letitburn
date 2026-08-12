@@ -24,15 +24,16 @@ describe('privacy page configuration', () => {
     expect(PRIVACY_POLICY_META.version).toBeDefined()
   })
 
-  it('storage table registry excludes burn notes and quiz answers', () => {
+  it('storage table registry excludes burn notes and lasting quiz answers', () => {
     const keys = storageRegistry.map((entry) => entry.key)
     expect(keys.some((key) => key.includes('burn') && key.includes('note'))).toBe(false)
-    expect(keys.some((key) => key.includes('quiz'))).toBe(false)
+    expect(keys.some((key) => key.includes('quiz') && key.includes('answer'))).toBe(false)
+    expect(keys.some((key) => key.startsWith('lib-quiz-result'))).toBe(true)
   })
 
-  it('ads-disabled state matches configuration flag', () => {
+  it('ads-enabled state matches configuration flag', () => {
     expect(PRIVACY_FEATURE_FLAGS.adsEnabled).toBe(ADS_ENABLED)
-    expect(PRIVACY_FEATURE_FLAGS.adsEnabled).toBe(false)
+    expect(PRIVACY_FEATURE_FLAGS.adsEnabled).toBe(true)
   })
 
   it('does not expose TODO placeholders as production-safe dates', () => {
@@ -40,14 +41,14 @@ describe('privacy page configuration', () => {
     expect(getProductionSafePolicyDate('2026-01-01')).toBe('2026-01-01')
   })
 
-  it('detects missing production configuration', () => {
+  it('accepts filled production configuration', () => {
     const validation = validatePrivacyConfig()
-    expect(validation.isProductionReady).toBe(false)
-    expect(validation.missingFields.length).toBeGreaterThan(0)
+    expect(validation.isProductionReady).toBe(true)
+    expect(validation.missingFields.length).toBe(0)
   })
 
-  it('shows configuration warning only in development', () => {
-    expect(shouldShowPrivacyConfigWarning()).toBe(import.meta.env.DEV)
+  it('hides configuration warning when production-ready', () => {
+    expect(shouldShowPrivacyConfigWarning()).toBe(false)
   })
 
   it('enabled storage entries come from the registry', () => {

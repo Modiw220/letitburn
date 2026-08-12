@@ -27,7 +27,7 @@ export const trustItems: TrustItemData[] = [
   {
     id: 'no-signup',
     title: 'No Sign Up',
-    text: 'No account is needed to use our core features.',
+    text: 'Core features work without an account. Sign in only to restore optional purchases.',
     icon: Unlock,
     accent: 'purple',
   },

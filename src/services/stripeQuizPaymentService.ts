@@ -5,37 +5,26 @@ import type {
   QuizPaymentService,
   VerifyPaymentInput,
 } from '../types/quizPayments'
+import { invokeFunction } from '../lib/invokeFunction'
 
 export class StripeQuizPaymentService implements QuizPaymentService {
-  async createCheckoutSession(_input: CheckoutInput): Promise<CheckoutSession> {
-    const response = await fetch('/api/quiz-reports/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(_input),
+  async createCheckoutSession(input: CheckoutInput): Promise<CheckoutSession> {
+    return invokeFunction<CheckoutSession>('quiz-report-checkout', input, {
+      requireAuth: true,
     })
-
-    if (!response.ok) {
-      throw new Error('Unable to create checkout session.')
-    }
-
-    return response.json() as Promise<CheckoutSession>
   }
 
   async verifyPayment(input: VerifyPaymentInput): Promise<PaymentVerification> {
-    const response = await fetch('/api/quiz-reports/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-    })
-
-    if (!response.ok) {
+    try {
+      return await invokeFunction<PaymentVerification>('quiz-report-verify', input, {
+        requireAuth: true,
+      })
+    } catch {
       return {
         verified: false,
         errorMessage:
           'We could not verify the payment. Please check with your payment provider before trying again.',
       }
     }
-
-    return response.json() as Promise<PaymentVerification>
   }
 }

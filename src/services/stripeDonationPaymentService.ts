@@ -5,39 +5,28 @@ import type {
   DonationVerification,
   VerifyDonationInput,
 } from '../types/donations'
+import { invokeFunction } from '../lib/invokeFunction'
 
 export class StripeDonationPaymentService implements DonationPaymentService {
   async createCheckoutSession(
     input: CreateDonationCheckoutInput,
   ): Promise<DonationCheckoutSession> {
-    const response = await fetch('/api/donations/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
+    return invokeFunction<DonationCheckoutSession>('donation-checkout', input, {
+      requireAuth: false,
     })
-
-    if (!response.ok) {
-      throw new Error('Unable to create donation checkout session.')
-    }
-
-    return response.json() as Promise<DonationCheckoutSession>
   }
 
   async verifyDonation(input: VerifyDonationInput): Promise<DonationVerification> {
-    const response = await fetch('/api/donations/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-    })
-
-    if (!response.ok) {
+    try {
+      return await invokeFunction<DonationVerification>('donation-verify', input, {
+        requireAuth: false,
+      })
+    } catch {
       return {
         verified: false,
         errorMessage:
           'We could not verify the donation. Please check with your payment provider before trying again.',
       }
     }
-
-    return response.json() as Promise<DonationVerification>
   }
 }

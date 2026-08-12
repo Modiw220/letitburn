@@ -1,0 +1,135 @@
+import type { QuizDefinition } from '../../types/quizEngine'
+
+export const relationshipPatternsQuiz: QuizDefinition = {
+  id: 'relationship-patterns',
+  slug: 'relationship-patterns-test',
+  title: 'Relationship Patterns Test',
+  eyebrow: 'RELATIONSHIP PATTERNS TEST',
+  introHeading: 'What habits show up in your relationships?',
+  introDescription:
+    'Reflect on communication, boundaries, conflict, emotional needs, and recurring relationship habits.',
+  estimatedMinutes: 5,
+  accentColor: '#6BAF8D',
+  questions: [
+    {
+      id: 'rp-q1',
+      order: 1,
+      text: 'I can say what I mean without leaving the important parts unsaid.',
+      dimension: 'rel-communication',
+    },
+    {
+      id: 'rp-q2',
+      order: 2,
+      text: 'I listen well enough that others feel heard by me.',
+      dimension: 'rel-communication',
+    },
+    {
+      id: 'rp-q3',
+      order: 3,
+      text: 'I check for understanding instead of assuming I already know.',
+      dimension: 'rel-communication',
+    },
+    {
+      id: 'rp-q4',
+      order: 4,
+      text: 'I can bring up hard topics before they build for too long.',
+      dimension: 'rel-communication',
+    },
+    {
+      id: 'rp-q5',
+      order: 5,
+      text: 'I return to conversations when timing was wrong the first time.',
+      dimension: 'rel-communication',
+    },
+    {
+      id: 'rp-q6',
+      order: 6,
+      text: 'I can say no without collapsing into guilt for days.',
+      dimension: 'boundaries',
+    },
+    {
+      id: 'rp-q7',
+      order: 7,
+      text: 'I respect other people’s limits as well as my own.',
+      dimension: 'boundaries',
+    },
+    {
+      id: 'rp-q8',
+      order: 8,
+      text: 'I keep agreements that protect my time and energy.',
+      dimension: 'boundaries',
+    },
+    {
+      id: 'rp-q9',
+      order: 9,
+      text: 'I notice when I am overgiving and can adjust.',
+      dimension: 'boundaries',
+    },
+    {
+      id: 'rp-q10',
+      order: 10,
+      text: 'I can stay in connection without abandoning my needs.',
+      dimension: 'boundaries',
+    },
+    {
+      id: 'rp-q11',
+      order: 11,
+      text: 'During conflict, I can stay present long enough to repair.',
+      dimension: 'conflict-patterns',
+    },
+    {
+      id: 'rp-q12',
+      order: 12,
+      text: 'I argue about the issue instead of attacking the person.',
+      dimension: 'conflict-patterns',
+    },
+    {
+      id: 'rp-q13',
+      order: 13,
+      text: 'I can take a break in conflict and return when calmer.',
+      dimension: 'conflict-patterns',
+    },
+    {
+      id: 'rp-q14',
+      order: 14,
+      text: 'I apologize when I have caused harm without losing my self-respect.',
+      dimension: 'conflict-patterns',
+    },
+    {
+      id: 'rp-q15',
+      order: 15,
+      text: 'I learn from repeating arguments instead of only restarting them.',
+      dimension: 'conflict-patterns',
+    },
+    {
+      id: 'rp-q16',
+      order: 16,
+      text: 'I can name what I need from a relationship.',
+      dimension: 'emotional-needs',
+    },
+    {
+      id: 'rp-q17',
+      order: 17,
+      text: 'I ask for support in ways others can understand.',
+      dimension: 'emotional-needs',
+    },
+    {
+      id: 'rp-q18',
+      order: 18,
+      text: 'I notice other people’s emotional needs without disappearing into them.',
+      dimension: 'emotional-needs',
+    },
+    {
+      id: 'rp-q19',
+      order: 19,
+      text: 'I feel worthy of care in my close relationships.',
+      dimension: 'emotional-needs',
+    },
+    {
+      id: 'rp-q20',
+      order: 20,
+      text: 'I can receive care when it is offered.',
+      dimension: 'emotional-needs',
+    },
+  ],
+}

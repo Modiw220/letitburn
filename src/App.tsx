@@ -13,6 +13,8 @@ import PrivacyPage from './pages/PrivacyPage'
 import PricingPage from './pages/PricingPage'
 import SafetyResourcesPage from './pages/SafetyResourcesPage'
 import ContactPage from './pages/ContactPage'
+import AuthPage from './pages/AuthPage'
+import AccountPage from './pages/AccountPage'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
@@ -25,6 +27,14 @@ function App() {
           element: (
             <HomePage theme={theme} onToggleTheme={toggleTheme} />
           ),
+        },
+        {
+          path: '/auth',
+          element: <AuthPage theme={theme} onToggleTheme={toggleTheme} />,
+        },
+        {
+          path: '/account',
+          element: <AccountPage theme={theme} onToggleTheme={toggleTheme} />,
         },
         {
           path: '/burn-thoughts',

@@ -1,4 +1,5 @@
 import { coloringTemplates } from '../../data/coloringTemplates'
+import { useEntitlements } from '../../context/EntitlementsContext'
 import type { ColoringTemplate } from '../../types/drawing'
 import TemplateCard from './TemplateCard'
 
@@ -15,6 +16,8 @@ export default function TemplateGallery({
   onRemove,
   visible,
 }: TemplateGalleryProps) {
+  const { hasPack } = useEntitlements()
+
   if (!visible) return null
 
   return (
@@ -43,14 +46,20 @@ export default function TemplateGallery({
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {coloringTemplates.map((template) => (
-          <TemplateCard
-            key={template.id}
-            template={template}
-            isSelected={selectedTemplateId === template.id}
-            onSelect={onSelect}
-          />
-        ))}
+        {coloringTemplates.map((template) => {
+          const locked = Boolean(
+            template.premium && template.packId && !hasPack(template.packId),
+          )
+          return (
+            <TemplateCard
+              key={template.id}
+              template={template}
+              isSelected={selectedTemplateId === template.id}
+              locked={locked}
+              onSelect={onSelect}
+            />
+          )
+        })}
       </div>
     </section>
   )

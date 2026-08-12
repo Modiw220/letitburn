@@ -36,16 +36,8 @@ export default function IndividualQuizPage({ theme, onToggleTheme }: IndividualQ
   const implemented = isQuizImplemented(quizSlug)
 
   usePageMeta({
-    title:
-      quizSlug === 'emotional-wellbeing-check-in'
-        ? 'Emotional Wellbeing Check-In | Let It Burn'
-        : definition
-          ? `${definition.title} | Let It Burn`
-          : 'Quiz Not Found | Let It Burn',
-    description:
-      quizSlug === 'emotional-wellbeing-check-in'
-        ? 'Complete a short private self-reflection check-in about emotions, energy, connection, and recovery. Includes a free basic result.'
-        : definition?.introDescription ?? 'Self-reflection quiz on Let It Burn.',
+    title: definition ? `${definition.title} | Let It Burn` : 'Quiz Not Found | Let It Burn',
+    description: definition?.introDescription ?? 'Self-reflection quiz on Let It Burn.',
     canonicalPath: `/quizzes/${quizSlug}`,
   })
 

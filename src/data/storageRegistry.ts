@@ -50,6 +50,14 @@ export const storageRegistry: StorageEntry[] = [
     duration: 'Until cleared by the user or browser',
     enabled: true,
   },
+  {
+    key: 'lib-quiz-result:*',
+    technology: 'sessionStorage',
+    category: 'essential',
+    purpose: 'Temporarily keep a free quiz result on this device while Stripe checkout completes',
+    duration: 'Cleared after report unlock or when the browser tab session ends',
+    enabled: true,
+  },
 ]
 
 export const enabledStorageEntries = storageRegistry.filter((entry) => entry.enabled)

@@ -12,7 +12,7 @@ import QuizSafetyNotice from './QuizSafetyNotice'
 import ReflectionPrompts from './ReflectionPrompts'
 
 export default function FullReflectionReport() {
-  const { fullReport, requestRestart, isReportUnlocked, accessToken } = useQuizEngine()
+  const { fullReport, definition, requestRestart, isReportUnlocked, accessToken } = useQuizEngine()
   const [pdfError, setPdfError] = useState<string | null>(null)
   const [liveMessage, setLiveMessage] = useState('')
 
@@ -39,7 +39,7 @@ export default function FullReflectionReport() {
           Full Reflection Report
         </p>
         <h2 id="full-report-heading" className="mt-2 font-heading text-2xl font-semibold text-text-main md:text-3xl">
-          Emotional Wellbeing Check-In
+          {definition.title}
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-text-muted">{fullReport.summary}</p>
         <DimensionSummaryStrip />
@@ -92,7 +92,7 @@ export default function FullReflectionReport() {
           className="mt-8 text-sm text-text-muted transition-colors hover:text-text-main"
           onClick={requestRestart}
         >
-          Take the Check-In Again
+          Take the Quiz Again
         </button>
       </div>
     </section>

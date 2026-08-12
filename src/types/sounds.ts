@@ -49,6 +49,8 @@ export interface PremiumSoundFeature {
   title: string
   description: string
   icon: 'sliders' | 'heart' | 'sparkles' | 'badge'
+  productId: string
+  entitlementCheck: 'sound-mixer' | 'premium-sounds' | 'ad-free'
 }
 
 export const STORAGE_KEYS = {
@@ -58,4 +60,4 @@ export const STORAGE_KEYS = {
   timerPreset: 'letItBurn.timerPreset',
 } as const
 
-export const ADS_ENABLED = false
+export const ADS_ENABLED = true

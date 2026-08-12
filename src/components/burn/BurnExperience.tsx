@@ -103,7 +103,7 @@ export default function BurnExperience() {
                 Anonymous
               </span>
               <span aria-hidden="true">·</span>
-              <span>No account needed</span>
+              <span>No account needed to burn</span>
               <span aria-hidden="true">·</span>
               <span>Your note is not saved</span>
             </div>

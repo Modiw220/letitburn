@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuizLeaveWarning } from '../hooks/useQuizLeaveWarning'
 import { useQuizPayment } from '../hooks/useQuizPayment'
 import { computeBasicResult } from '../hooks/useQuizScoring'
@@ -99,16 +99,59 @@ export function QuizEngineProvider({
   const payment = useQuizPayment({
     quizId: definition.id,
     quizSlug: definition.slug,
-    reportLabel: 'Emotional Wellbeing Full Reflection Report',
+    reportLabel: `${definition.title} Full Reflection Report`,
     onVerified: () => {
-      const result = basicResultRef.current
+      const cached = sessionStorage.getItem(`lib-quiz-result:${definition.slug}`)
+      const result =
+        basicResultRef.current ??
+        (cached ? (JSON.parse(cached) as BasicQuizResult) : null)
       if (result) {
+        basicResultRef.current = result
+        setBasicResult(result)
         setVerifiedReport(buildFullReport(definition, result))
       }
       setStage('full-report')
+      sessionStorage.removeItem(`lib-quiz-result:${definition.slug}`)
     },
     announce,
   })
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const returnHandledRef = useRef(false)
+
+  useEffect(() => {
+    const cached = sessionStorage.getItem(`lib-quiz-result:${definition.slug}`)
+    if (cached && !basicResultRef.current) {
+      try {
+        const parsed = JSON.parse(cached) as BasicQuizResult
+        basicResultRef.current = parsed
+        setBasicResult(parsed)
+      } catch {
+        sessionStorage.removeItem(`lib-quiz-result:${definition.slug}`)
+      }
+    }
+  }, [definition.slug])
+
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id')
+    if (!sessionId || returnHandledRef.current) return
+    returnHandledRef.current = true
+    void payment.verifySession(sessionId).finally(() => {
+      const next = new URLSearchParams(searchParams)
+      next.delete('session_id')
+      setSearchParams(next, { replace: true })
+    })
+  }, [payment, searchParams, setSearchParams])
+
+  const startCheckoutWithCache = useCallback(async () => {
+    if (basicResultRef.current) {
+      sessionStorage.setItem(
+        `lib-quiz-result:${definition.slug}`,
+        JSON.stringify(basicResultRef.current),
+      )
+    }
+    await payment.startCheckout()
+  }, [definition.slug, payment])
 
   const clearAll = useCallback(() => {
     resetSensitiveState()
@@ -269,7 +312,7 @@ export function QuizEngineProvider({
       goToQuestionsFromReview,
       unlockReport,
       returnToFreeResult,
-      startCheckout: payment.startCheckout,
+      startCheckout: startCheckoutWithCache,
       simulateMockPayment: payment.simulateMockPayment,
       requestExit,
       confirmExit,
@@ -306,6 +349,7 @@ export function QuizEngineProvider({
       goToQuestionsFromReview,
       unlockReport,
       returnToFreeResult,
+      startCheckoutWithCache,
       requestExit,
       confirmExit,
       cancelExit,

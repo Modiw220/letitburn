@@ -27,7 +27,7 @@ export const pricingFaqs = [
     id: 'restore',
     question: 'Can I restore a purchase on another device?',
     answer:
-      'Cross-device restoration depends on the entitlement and account system. It should not be promised until secure restoration is implemented.',
+      'Cross-device restoration uses your signed-in account and server entitlements after purchase.',
   },
   {
     id: 'ads-burn',
