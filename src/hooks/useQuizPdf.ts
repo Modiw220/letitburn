@@ -1,6 +1,9 @@
 import { jsPDF } from 'jspdf'
 import type { FullReflectionReport } from '../types/quizResults'
-import { generateReportFilename } from '../utils/generateReportFilename'
+import {
+  generateReportFilename,
+  reportFilenamePrefix,
+} from '../utils/generateReportFilename'
 
 export function generateQuizPdf(report: FullReflectionReport): void {
   const doc = new jsPDF({ unit: 'pt', format: 'letter' })
@@ -48,7 +51,7 @@ export function generateQuizPdf(report: FullReflectionReport): void {
   doc.setFontSize(22)
   doc.text('Let It Burn', margin, y)
   y += 28
-  writeHeading('Emotional Wellbeing Full Reflection Report')
+  writeHeading(`${report.quizTitle} Full Reflection Report`)
   writeParagraph(`Completed: ${new Date(report.generatedAt).toLocaleDateString()}`)
   writeParagraph(report.summary)
   writeParagraph(
@@ -81,9 +84,9 @@ export function generateQuizPdf(report: FullReflectionReport): void {
   })
 
   writeHeading('Suggested Let It Burn Tools')
-  writeParagraph('Write and Release — /burn-thoughts')
-  writeParagraph('Listen to a Calming Sound — /sounds')
-  writeParagraph('Try Relaxing Drawing — /relaxing-drawing')
+  writeParagraph('Write and Release: /burn-thoughts')
+  writeParagraph('Listen to a Calming Sound: /sounds')
+  writeParagraph('Try Relaxing Drawing: /relaxing-drawing')
 
   writeHeading('Privacy Note')
   writeParagraph(
@@ -97,7 +100,7 @@ export function generateQuizPdf(report: FullReflectionReport): void {
     align: 'right',
   })
 
-  doc.save(generateReportFilename())
+  doc.save(generateReportFilename(reportFilenamePrefix(report.quizSlug)))
 }
 
 export function useQuizPdf() {

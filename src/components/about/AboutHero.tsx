@@ -49,7 +49,7 @@ export default function AboutHero() {
           </div>
 
           <p className="mt-5 text-sm text-text-muted">
-            No account is required for the core release and relaxation tools.
+            No account is required for core release and relaxation tools. An account is only needed for purchases and restore.
           </p>
         </div>
 

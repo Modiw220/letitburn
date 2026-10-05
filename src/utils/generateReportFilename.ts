@@ -1,7 +1,12 @@
-export function generateReportFilename(prefix = 'let-it-burn-emotional-wellbeing-report'): string {
+export function generateReportFilename(prefix = 'let-it-burn-quiz-report'): string {
   const date = new Date()
   const yyyy = date.getFullYear()
   const mm = String(date.getMonth() + 1).padStart(2, '0')
   const dd = String(date.getDate()).padStart(2, '0')
   return `${prefix}-${yyyy}-${mm}-${dd}.pdf`
+}
+
+export function reportFilenamePrefix(quizSlug: string): string {
+  const safe = quizSlug.replace(/[^a-z0-9-]/gi, '').toLowerCase() || 'quiz'
+  return `let-it-burn-${safe}-report`
 }

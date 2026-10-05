@@ -1,4 +1,10 @@
 import type { ColoringTemplate } from '../types/drawing'
+import abstractGarden from '../assets/coloring-templates/abstract-garden.svg'
+import botanicalLeaves from '../assets/coloring-templates/botanical-leaves.svg'
+import cozyWindow from '../assets/coloring-templates/cozy-window.svg'
+import gentleWaves from '../assets/coloring-templates/gentle-waves.svg'
+import mandalaBloom from '../assets/coloring-templates/mandala-bloom.svg'
+import moonAndStars from '../assets/coloring-templates/moon-and-stars.svg'
 
 const template = (index: number) => `/Templates/template-${String(index).padStart(2, '0')}.png`
 
@@ -92,5 +98,65 @@ export const coloringTemplates: ColoringTemplate[] = [
     thumbnail: template(10),
     source: template(10),
     premium: false,
+  },
+  {
+    id: 'leaf-mandala',
+    title: 'Leaf Mandala',
+    description: 'A botanical mandala from the Botanical Calm pack.',
+    difficulty: 'medium',
+    thumbnail: mandalaBloom,
+    source: mandalaBloom,
+    premium: true,
+    packId: 'botanical-calm',
+  },
+  {
+    id: 'fern-spiral',
+    title: 'Fern Spiral',
+    description: 'Spiraling fern lines for slow coloring.',
+    difficulty: 'detailed',
+    thumbnail: botanicalLeaves,
+    source: botanicalLeaves,
+    premium: true,
+    packId: 'botanical-calm',
+  },
+  {
+    id: 'crescent-weave',
+    title: 'Crescent Weave',
+    description: 'Moonlit arcs from the Moonlit Patterns pack.',
+    difficulty: 'medium',
+    thumbnail: moonAndStars,
+    source: moonAndStars,
+    premium: true,
+    packId: 'moonlit-patterns',
+  },
+  {
+    id: 'hex-calm',
+    title: 'Hex Calm',
+    description: 'Soft geometry from the Geometric Reset pack.',
+    difficulty: 'simple',
+    thumbnail: abstractGarden,
+    source: abstractGarden,
+    premium: true,
+    packId: 'geometric-reset',
+  },
+  {
+    id: 'lake-line',
+    title: 'Lake Line',
+    description: 'A quiet horizon from the Quiet Landscapes pack.',
+    difficulty: 'simple',
+    thumbnail: gentleWaves,
+    source: gentleWaves,
+    premium: true,
+    packId: 'quiet-landscapes',
+  },
+  {
+    id: 'path-home',
+    title: 'Path Home',
+    description: 'A soft path scene from Quiet Landscapes.',
+    difficulty: 'detailed',
+    thumbnail: cozyWindow,
+    source: cozyWindow,
+    premium: true,
+    packId: 'quiet-landscapes',
   },
 ]

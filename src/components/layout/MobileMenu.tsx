@@ -13,6 +13,7 @@ export const navLinks: NavLink[] = [
   { label: 'Sounds', href: '/sounds' },
   { label: 'Quizzes', href: '/quizzes' },
   { label: 'About', href: '/about' },
+  { label: 'Account', href: '/account' },
   { label: 'Support Us', href: '/support', icon: 'heart' },
 ]
 
@@ -48,7 +49,7 @@ export default function MobileMenu({
             Move gently
           </p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-text-muted">
-            Choose the tool that fits this moment. Nothing here requires an account.
+            Free tools work without an account. Sign in to restore purchases.
           </p>
         </div>
 

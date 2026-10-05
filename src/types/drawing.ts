@@ -19,6 +19,7 @@ export interface ColoringTemplate {
   thumbnail: string
   source: string
   premium: boolean
+  packId?: string
 }
 
 export interface DrawingSettings {

@@ -1,19 +1,24 @@
+import { invokeFunction } from '../lib/invokeFunction'
 import type { PrivacyRequestInput, PrivacyRequestResult } from '../types/privacy'
 
 export interface PrivacyRequestService {
   submitRequest(input: PrivacyRequestInput): Promise<PrivacyRequestResult>
 }
 
-export class UnconfiguredPrivacyRequestService implements PrivacyRequestService {
-  async submitRequest(): Promise<PrivacyRequestResult> {
-    return {
-      submitted: false,
-      message:
-        'Privacy requests are not configured yet. Please use the verified privacy contact method when it becomes available.',
-    }
+class SupabasePrivacyRequestService implements PrivacyRequestService {
+  async submitRequest(input: PrivacyRequestInput): Promise<PrivacyRequestResult> {
+    return invokeFunction<PrivacyRequestResult>(
+      'submit-privacy-request',
+      {
+        email: input.email,
+        requestType: input.type,
+        details: input.details,
+      },
+      { requireAuth: true },
+    )
   }
 }
 
 export function getPrivacyRequestService(): PrivacyRequestService {
-  return new UnconfiguredPrivacyRequestService()
+  return new SupabasePrivacyRequestService()
 }

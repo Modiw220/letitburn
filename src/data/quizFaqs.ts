@@ -16,7 +16,7 @@ export const quizFaqs: QuizFaqItem[] = [
   {
     id: 'account',
     question: 'Do I need an account?',
-    answer: 'No account is required to browse or begin the quizzes.',
+    answer: 'No account is required to browse or begin quizzes. Sign in is required only to buy and restore full reports.',
   },
   {
     id: 'report',

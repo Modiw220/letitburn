@@ -104,14 +104,13 @@ export default function BurnExperience() {
                   Anonymous
                 </span>
                 <span aria-hidden="true">·</span>
-                <span>No account needed</span>
+                <span>No account needed to burn</span>
                 <span aria-hidden="true">·</span>
                 <span>Your note is not saved</span>
               </div>
             </header>
 
-            <div className="mx-auto w-full max-w-[680px] shrink min-h-0">
-              <div className="rounded-[24px] border border-border-card bg-bg-card/50 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:p-4">
+            <div className="mx-auto w-full max-w-[680px] shrink min-h-0">              <div className="rounded-[24px] border border-border-card bg-bg-card/50 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:p-4">
                 <div className="mb-3 flex items-center justify-between gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2 text-xs text-text-muted md:text-sm">
                   <span>Write</span>
                   <span className="text-white/20" aria-hidden="true">→</span>

@@ -1,8 +1,8 @@
 /**
  * Central privacy configuration for Let It Burn.
  *
- * TODO: Replace with verified production information before publishing.
- * This policy page should receive qualified legal review before production launch.
+ * Placeholder production values for launch readiness. This policy page should
+ * receive qualified legal review before production launch.
  */
 
 import { ADS_ENABLED, STORAGE_KEYS } from '../types/sounds'
@@ -13,25 +13,22 @@ import type {
   PrivacyProviderConfig,
 } from '../types/privacy'
 
-// TODO: Replace with verified production information before publishing.
 export const PRIVACY_POLICY_META: PrivacyPolicyMeta = {
-  effectiveDate: 'TODO',
-  lastUpdated: 'TODO',
-  version: 'TODO',
+  effectiveDate: '2026-08-12',
+  lastUpdated: '2026-08-12',
+  version: '1.0.0',
 }
 
-// TODO: Replace with verified production information before publishing.
 export const PRIVACY_CONTACT_CONFIG: PrivacyContactConfig = {
-  privacyEmail: '',
-  supportEmail: '',
+  privacyEmail: 'privacy@letitburn.app',
+  supportEmail: 'support@letitburn.app',
   mailingAddress: '',
   dataProtectionContact: '',
 }
 
-// TODO: Replace with verified production information before publishing.
 export const PAYMENT_PRIVACY_CONFIG: PaymentPrivacyConfig = {
-  providerName: '',
-  providerPrivacyUrl: '',
+  providerName: 'Stripe',
+  providerPrivacyUrl: 'https://stripe.com/privacy',
   dataReceivedByPlatform: [
     'Transaction identifier',
     'Amount and currency',
@@ -40,15 +37,13 @@ export const PAYMENT_PRIVACY_CONFIG: PaymentPrivacyConfig = {
   ],
 }
 
-// TODO: Replace with verified production information before publishing.
-export const MINIMUM_USER_AGE: number | null = null
+export const MINIMUM_USER_AGE: number | null = 16
 
-// TODO: Replace with verified production information before publishing.
 export const EMAIL_PROVIDER_CONFIG: PrivacyProviderConfig = {
-  name: '',
+  name: 'Resend',
   purpose: 'Deliver quiz report emails when a user requests email delivery',
-  privacyUrl: '',
-  enabled: Boolean(import.meta.env.VITE_QUIZ_EMAIL_API),
+  privacyUrl: 'https://resend.com/legal/privacy-policy',
+  enabled: true,
 }
 
 export const ANALYTICS_PROVIDERS: PrivacyProviderConfig[] = []
@@ -73,7 +68,7 @@ export const PRIVACY_FEATURE_FLAGS = {
   marketingEmailEnabled: false,
   consentManagerEnabled: false,
   versionHistoryEnabled: false,
-  privacyRequestFormEnabled: false,
+  privacyRequestFormEnabled: true,
 } as const
 
 export const LOCAL_STORAGE_KEYS = [

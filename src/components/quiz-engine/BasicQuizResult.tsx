@@ -21,7 +21,7 @@ export default function BasicQuizResult() {
     <section className="mx-auto max-w-[960px]" aria-labelledby="basic-result-heading">
       <div className="quiz-stage-card">
         <h2 id="basic-result-heading" className="font-heading text-2xl font-semibold text-text-main md:text-3xl">
-          Your wellbeing reflection
+          Your reflection
         </h2>
 
         <p className="mt-4 text-lg font-medium text-text-main">{basicResult.range.label}</p>
@@ -68,7 +68,7 @@ export default function BasicQuizResult() {
           className="mt-6 text-sm text-text-muted transition-colors hover:text-text-main"
           onClick={requestRestart}
         >
-          Take the Check-In Again
+          Take the Quiz Again
         </button>
       </div>
 

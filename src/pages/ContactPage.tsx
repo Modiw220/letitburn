@@ -1,13 +1,20 @@
+import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/layout/Footer'
 import Header from '../components/layout/Header'
 import PageSectionIntro from '../components/common/PageSectionIntro'
 import { PRIVACY_CONTACT_CONFIG } from '../config/privacyConfig'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { invokeFunction } from '../lib/invokeFunction'
 
 interface ContactPageProps {
   theme: 'dark' | 'light'
   onToggleTheme: () => void
+}
+
+interface ContactSubmitResult {
+  submitted: boolean
+  message: string
 }
 
 function ContactPageContent() {
@@ -19,6 +26,53 @@ function ContactPageContent() {
   })
 
   const supportEmail = PRIVACY_CONTACT_CONFIG.supportEmail || PRIVACY_CONTACT_CONFIG.privacyEmail
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError(null)
+    setSuccess(null)
+
+    const trimmedEmail = email.trim()
+    const trimmedMessage = message.trim()
+    if (!trimmedEmail.includes('@')) {
+      setError('Please enter a valid email address.')
+      return
+    }
+    if (!trimmedMessage) {
+      setError('Please include a short message.')
+      return
+    }
+
+    setSubmitting(true)
+    try {
+      const result = await invokeFunction<ContactSubmitResult>(
+        'submit-contact',
+        {
+          name: name.trim() || undefined,
+          email: trimmedEmail,
+          subject: subject.trim() || undefined,
+          message: trimmedMessage,
+        },
+        { requireAuth: false },
+      )
+      setSuccess(result.message || 'Thanks. Your message has been received.')
+      setName('')
+      setEmail('')
+      setSubject('')
+      setMessage('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to send your message right now.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <main className="page-shell page-shell--editorial py-8 md:py-12">
@@ -40,6 +94,86 @@ function ContactPageContent() {
                 <li>Questions about privacy, payments, or optional reports.</li>
                 <li>Broken links, missing flows, or accessibility issues.</li>
               </ul>
+
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
+                <label className="block space-y-2">
+                  <span className="text-sm font-medium text-text-main">Name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-text-main outline-none ring-calm-cyan/40 placeholder:text-text-muted focus:ring-2"
+                    placeholder="Optional"
+                  />
+                </label>
+
+                <label className="block space-y-2">
+                  <span className="text-sm font-medium text-text-main">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-text-main outline-none ring-calm-cyan/40 placeholder:text-text-muted focus:ring-2"
+                    placeholder="you@example.com"
+                  />
+                </label>
+
+                <label className="block space-y-2">
+                  <span className="text-sm font-medium text-text-main">Subject</span>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-text-main outline-none ring-calm-cyan/40 placeholder:text-text-muted focus:ring-2"
+                    placeholder="Optional"
+                  />
+                </label>
+
+                <label className="block space-y-2">
+                  <span className="text-sm font-medium text-text-main">Message</span>
+                  <textarea
+                    name="message"
+                    required
+                    rows={5}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full resize-y rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-text-main outline-none ring-calm-cyan/40 placeholder:text-text-muted focus:ring-2"
+                    placeholder="Share what would help."
+                  />
+                </label>
+
+                {error && (
+                  <p
+                    className="rounded-xl border border-fire-orange/30 bg-fire-orange/10 px-4 py-3 text-sm text-bright-orange"
+                    role="alert"
+                  >
+                    {error}
+                  </p>
+                )}
+
+                {success && (
+                  <p
+                    className="rounded-xl border border-calm-cyan/30 bg-calm-cyan/10 px-4 py-3 text-sm text-text-main"
+                    role="status"
+                  >
+                    {success}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl border border-calm-cyan/40 bg-calm-cyan/15 px-6 py-3 text-sm font-semibold text-calm-cyan transition-colors hover:bg-calm-cyan/20 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {submitting ? 'Sending…' : 'Send message'}
+                </button>
+              </form>
             </article>
 
             <article className="rounded-2xl border border-calm-cyan/20 bg-calm-cyan/6 p-5">
@@ -48,7 +182,10 @@ function ContactPageContent() {
               </h2>
               {supportEmail ? (
                 <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                  Email: <a className="text-calm-cyan hover:underline" href={`mailto:${supportEmail}`}>{supportEmail}</a>
+                  Email:{' '}
+                  <a className="text-calm-cyan hover:underline" href={`mailto:${supportEmail}`}>
+                    {supportEmail}
+                  </a>
                 </p>
               ) : (
                 <p className="mt-3 text-sm leading-relaxed text-text-muted">

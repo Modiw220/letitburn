@@ -8,6 +8,7 @@ import SoundKeyboardShortcutsDialog, {
   KeyboardShortcutsButton,
 } from '../components/sounds/SoundKeyboardShortcutsDialog'
 import SoundLibrary from '../components/sounds/SoundLibrary'
+import SoundMixer from '../components/sounds/SoundMixer'
 import SoundPrivacyNotice from '../components/sounds/SoundPrivacyNotice'
 import SoundsHero from '../components/sounds/SoundsHero'
 import SoundSupportPanel from '../components/sounds/SoundSupportPanel'
@@ -118,6 +119,7 @@ function SoundsPageContent() {
 
           <div className="relative">
             <SoundLibrary />
+            <SoundMixer />
             <PremiumSoundPreview />
             <div className="mt-12 grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
               <SoundSupportPanel />

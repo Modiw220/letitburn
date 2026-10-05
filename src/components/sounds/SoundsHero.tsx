@@ -26,7 +26,7 @@ export default function SoundsHero() {
       <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-text-muted">
         <span className="inline-flex items-center gap-1.5">
           <Headphones className="h-4 w-4 text-calm-cyan" aria-hidden="true" />
-          No account needed
+          No account needed to listen
         </span>
         <span aria-hidden="true" className="hidden sm:inline">
           ·

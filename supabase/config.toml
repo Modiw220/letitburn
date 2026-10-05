@@ -1,0 +1,43 @@
+project_id = "letitburn"
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[functions.quiz-report-checkout]
+verify_jwt = true
+
+[functions.quiz-report-verify]
+verify_jwt = true
+
+[functions.donation-checkout]
+verify_jwt = false
+
+[functions.donation-verify]
+verify_jwt = false
+
+[functions.upgrade-checkout]
+verify_jwt = true
+
+[functions.upgrade-verify]
+verify_jwt = true
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.send-quiz-report-email]
+verify_jwt = true
+
+[functions.submit-contact]
+verify_jwt = false
+
+[functions.submit-privacy-request]
+verify_jwt = true

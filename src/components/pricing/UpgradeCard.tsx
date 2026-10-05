@@ -7,24 +7,67 @@ import { getBillingLabel, getUpgradeIcon, UPGRADE_ACCENT_COLORS } from './pricin
 
 interface UpgradeCardProps {
   product: UpgradeProduct
+  onBuy?: (productId: string) => void
+  buyingProductId?: string | null
+  buyError?: string | null
+  owned?: boolean
 }
 
-export default function UpgradeCard({ product }: UpgradeCardProps) {
+export default function UpgradeCard({
+  product,
+  onBuy,
+  buyingProductId,
+  buyError,
+  owned,
+}: UpgradeCardProps) {
   const Icon = getUpgradeIcon(product.icon)
   const accent =
     UPGRADE_ACCENT_COLORS[product.accent as keyof typeof UPGRADE_ACCENT_COLORS] ??
     UPGRADE_ACCENT_COLORS.blue
+  const isBuying = buyingProductId === product.id
 
   const actionContent = (() => {
-    if (product.available && product.route) {
+    if (owned) {
+      return (
+        <span className="inline-flex min-h-[44px] w-full items-center justify-center rounded-xl border border-calm-cyan/30 bg-calm-cyan/10 px-4 py-2.5 text-sm text-calm-cyan">
+          Owned on your account
+        </span>
+      )
+    }
+
+    if (product.available && product.id === 'full-quiz-report' && product.route) {
       return (
         <Link
           to={product.route}
           className="inline-flex min-h-[44px] w-full items-center justify-center rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors"
           style={{ borderColor: `${accent}55`, color: accent, backgroundColor: `${accent}10` }}
         >
-          View Upgrade
+          Open quiz to unlock
         </Link>
+      )
+    }
+
+    if (product.available && onBuy) {
+      return (
+        <div className="space-y-2">
+          <button
+            type="button"
+            disabled={isBuying}
+            onClick={() => onBuy(product.id)}
+            className="inline-flex min-h-[44px] w-full items-center justify-center rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60"
+            style={{ borderColor: `${accent}55`, color: accent, backgroundColor: `${accent}10` }}
+          >
+            {isBuying ? 'Starting checkout…' : 'Buy with account'}
+          </button>
+          {product.route && (
+            <Link to={product.route} className="block text-center text-xs text-text-muted hover:underline">
+              Open related tool
+            </Link>
+          )}
+          {buyError && buyingProductId === product.id && (
+            <p className="text-xs text-red-300">{buyError}</p>
+          )}
+        </div>
       )
     }
 

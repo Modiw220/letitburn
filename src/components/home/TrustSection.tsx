@@ -27,7 +27,7 @@ export default function TrustSection() {
             Private by default.
           </h3>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-text-muted">
-            The first promise of Let It Burn is low pressure. No account wall. No public feed. No
+            The first promise of Let It Burn is low pressure. No account wall for free tools. No public feed. No
             need to explain yourself before you can begin.
           </p>
 

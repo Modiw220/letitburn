@@ -1,3 +1,4 @@
+import { invokeFunction } from '../lib/invokeFunction'
 import type { FullReflectionReport } from '../types/quizResults'
 
 export interface EmailReportInput {
@@ -14,7 +15,7 @@ export interface EmailReportResult {
 }
 
 export function isEmailDeliveryConfigured(): boolean {
-  return Boolean(import.meta.env.VITE_QUIZ_EMAIL_API)
+  return Boolean(import.meta.env.VITE_SUPABASE_URL)
 }
 
 export async function sendQuizReportEmail(
@@ -27,29 +28,30 @@ export async function sendQuizReportEmail(
     }
   }
 
-  const response = await fetch(import.meta.env.VITE_QUIZ_EMAIL_API as string, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      accessToken: input.accessToken,
-      quizId: input.quizId,
-      recipientEmail: input.recipientEmail,
-      includeScoreInSubject: input.includeScoreInSubject,
-      reportSummary: {
-        title: 'Emotional Wellbeing Full Reflection Report',
-        generatedAt: input.report.generatedAt,
-        totalScore: input.report.basicResult.totalScore,
-        rangeLabel: input.report.basicResult.range.label,
+  try {
+    return await invokeFunction<EmailReportResult>(
+      'send-quiz-report-email',
+      {
+        accessToken: input.accessToken,
+        quizId: input.quizId,
+        recipientEmail: input.recipientEmail,
+        includeScoreInSubject: input.includeScoreInSubject,
+        reportSummary: {
+          title: `${input.report.quizTitle} Full Reflection Report`,
+          generatedAt: input.report.generatedAt,
+          totalScore: input.report.basicResult.totalScore,
+          rangeLabel: input.report.basicResult.range.label,
+        },
       },
-    }),
-  })
-
-  if (!response.ok) {
+      { requireAuth: true },
+    )
+  } catch (error) {
     return {
       sent: false,
-      message: 'The email could not be sent. Check the address or download the PDF instead.',
+      message:
+        error instanceof Error
+          ? error.message
+          : 'The email could not be sent. Check the address or download the PDF instead.',
     }
   }
-
-  return { sent: true, message: 'Your report has been sent.' }
 }

@@ -45,6 +45,8 @@ export interface DimensionReportSection {
 }
 
 export interface FullReflectionReport {
+  quizTitle: string
+  quizSlug: string
   basicResult: BasicQuizResult
   summary: string
   dimensionBreakdowns: DimensionReportSection[]

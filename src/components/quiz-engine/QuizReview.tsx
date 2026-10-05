@@ -1,10 +1,11 @@
 import { useQuizEngine } from '../../hooks/useQuizEngine'
-import { DIMENSION_LABELS, DIMENSION_ORDER } from '../../types/quizEngine'
+import { DIMENSION_LABELS, getQuizDimensions } from '../../types/quizEngine'
 import QuizDisclaimer from './QuizDisclaimer'
 import QuizPrivacyNotice from './QuizPrivacyNotice'
 
 export default function QuizReview() {
   const { definition, answers, calculateResult, goToQuestionsFromReview } = useQuizEngine()
+  const dimensions = getQuizDimensions(definition.questions)
 
   return (
     <section className="quiz-stage-card mx-auto max-w-[960px]" aria-labelledby="quiz-review-heading">
@@ -16,7 +17,7 @@ export default function QuizReview() {
       </p>
 
       <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {DIMENSION_ORDER.map((dimension) => (
+        {dimensions.map((dimension) => (
           <li
             key={dimension}
             className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-text-muted"

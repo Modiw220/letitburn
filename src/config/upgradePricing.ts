@@ -1,10 +1,7 @@
 /**
  * Central upgrade catalogue — single source of truth for pricing page products.
  *
- * Entitlement note: persistent access (ad removal, packs, bundles) requires
- * server-side entitlement records and/or user accounts before cross-device
- * restoration can be promised. Do not store permanent purchase access only
- * in localStorage.
+ * Persistent access uses server-side entitlements tied to authenticated accounts.
  */
 
 import { QUIZ_REPORT_PRICE } from '../data/quizPricing'
@@ -29,7 +26,7 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Dimension breakdown',
       'Personalized reflection prompts',
       'Calming exercises',
-      'Standard PDF download when supported',
+      'Standard PDF download',
     ],
     limitation: 'Available for supported quizzes such as the Emotional Wellbeing Check-In.',
     status: 'available',
@@ -54,10 +51,10 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Longer practical reflection guide',
       'Expanded suggested-next-step section',
     ],
-    status: 'planned',
+    status: 'available',
     icon: 'files',
     accent: 'lavender',
-    available: false,
+    available: true,
     mainBenefit: 'Extended interpretation and guided reflection',
   },
   {
@@ -76,10 +73,10 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Printable prompt pages',
       'High-quality PDF formatting',
     ],
-    status: 'planned',
+    status: 'available',
     icon: 'file-down',
     accent: 'gold',
-    available: false,
+    available: true,
     mainBenefit: 'Print-ready reflection report',
   },
   {
@@ -91,46 +88,44 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
     entitlementType: 'ad-removal',
     durationDays: 30,
     description:
-      'Hide eligible advertisement placements for 30 days on the supported browser or verified purchase account.',
+      'Hide eligible advertisement placements for 30 days on your signed-in account.',
     includedFeatures: [
       'Eligible ad placements hidden for 30 days',
       'Applies only where advertising is enabled',
       'One-time purchase, not a subscription',
     ],
-    limitation:
-      'Cross-device access requires a secure entitlement system and is not available until configured.',
-    status: 'planned',
+    limitation: 'Requires an account so the entitlement can restore across devices.',
+    status: 'available',
     icon: 'calendar-off',
     accent: 'green',
-    available: false,
+    available: true,
     mainBenefit: 'Temporary ad-free browsing on eligible pages',
   },
   {
     id: 'remove-ads-forever',
     title: 'Remove Ads Forever',
     category: 'ad-free',
-    price: { type: 'range', minimumMinor: 499, maximumMinor: 999, currency: 'USD' },
+    price: { type: 'fixed', amountMinor: 799, currency: 'USD' },
     billingType: 'one-time',
     entitlementType: 'ad-removal',
     description:
-      'A planned permanent ad-removal option for supported pages.',
+      'Permanent ad-removal for eligible pages on your account.',
     includedFeatures: [
-      'Permanent ad removal on eligible pages once configured',
-      'Exact entitlement scope to be defined before launch',
+      'Permanent ad removal on eligible pages',
+      'Restores with your account on other devices',
     ],
-    limitation:
-      '“Forever” meaning (account lifetime, service lifetime, or device scope) must be finalized before purchase is enabled.',
-    status: 'planned',
+    limitation: 'Applies to eligible placements while advertising remains part of the product.',
+    status: 'available',
     icon: 'badge-check',
     accent: 'green',
-    available: false,
+    available: true,
     mainBenefit: 'Long-term ad-free access on eligible pages',
   },
   {
     id: 'coloring-packs',
     title: 'Premium Coloring Packs',
     category: 'drawing',
-    price: { type: 'range', minimumMinor: 99, maximumMinor: 299, currency: 'USD' },
+    price: { type: 'fixed', amountMinor: 199, currency: 'USD' },
     billingType: 'one-time-per-pack',
     entitlementType: 'content-pack',
     description:
@@ -142,12 +137,12 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Quiet Landscapes',
       'Free templates remain available',
     ],
-    limitation: 'Each pack’s exact price will be shown before purchase.',
-    status: 'planned',
+    limitation: 'Checkout unlocks the Botanical Calm starter pack; more packs can be added from Drawing.',
+    status: 'available',
     icon: 'palette',
     accent: 'purple',
     route: '/relaxing-drawing',
-    available: false,
+    available: true,
     mainBenefit: 'Extra themed coloring templates',
   },
   {
@@ -165,18 +160,18 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Basic mix presets',
       'Timer compatibility',
     ],
-    status: 'planned',
+    status: 'available',
     icon: 'sliders-horizontal',
     accent: 'cyan',
     route: '/sounds',
-    available: false,
+    available: true,
     mainBenefit: 'Layer and mix calming sounds',
   },
   {
     id: 'premium-sounds',
     title: 'Premium Soundscapes',
     category: 'sounds',
-    price: { type: 'range', minimumMinor: 199, maximumMinor: 499, currency: 'USD' },
+    price: { type: 'fixed', amountMinor: 299, currency: 'USD' },
     billingType: 'one-time-per-pack',
     entitlementType: 'content-pack',
     description:
@@ -189,34 +184,33 @@ export const UPGRADE_CATALOGUE: UpgradeProduct[] = [
       'Quiet Library',
       'Free sounds remain available',
     ],
-    limitation: 'Each collection’s exact price will be shown before purchase.',
-    status: 'planned',
+    limitation: 'Checkout unlocks the Night Rain starter collection; more packs can be added from Sounds.',
+    status: 'available',
     icon: 'headphones',
     accent: 'cyan',
     route: '/sounds',
-    available: false,
+    available: true,
     mainBenefit: 'Additional premium sound collections',
   },
   {
     id: 'relaxation-bundle',
     title: 'Relaxation Bundle',
     category: 'bundle',
-    price: { type: 'range', minimumMinor: 699, maximumMinor: 999, currency: 'USD' },
+    price: { type: 'fixed', amountMinor: 899, currency: 'USD' },
     billingType: 'one-time',
     entitlementType: 'bundle',
     description:
-      'A planned collection combining selected reports, drawing content, and sound upgrades.',
+      'A combined collection of drawing, sound, and reflection upgrades.',
     includedFeatures: [
-      'One premium coloring pack',
+      'Botanical Calm coloring pack',
       'Sound Mixer access',
-      'One premium soundscape collection',
-      'One premium or extended reflection report',
+      'Night Rain soundscape collection',
+      'Extended reflection report credit',
     ],
-    limitation: 'Final contents and price will be shown clearly before availability.',
-    status: 'coming-later',
+    status: 'available',
     icon: 'package-open',
     accent: 'gold',
-    available: false,
+    available: true,
     mainBenefit: 'Combined drawing, sound, and reflection upgrades',
   },
 ]

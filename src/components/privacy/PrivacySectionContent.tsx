@@ -10,6 +10,7 @@ import {
 } from '../../config/privacyConfig'
 import { enabledStorageEntries } from '../../data/storageRegistry'
 import CookieDisclosureTable from './CookieDisclosureTable'
+import PrivacyRequestForm from './PrivacyRequestForm'
 import PrivacyRetentionTable from './PrivacyRetentionTable'
 import PrivacyRightsSection from './PrivacyRightsSection'
 
@@ -387,7 +388,11 @@ export default function PrivacySectionContent({ sectionId }: PrivacySectionConte
           {PRIVACY_CONTACT_CONFIG.mailingAddress && (
             <p>Mailing address: {PRIVACY_CONTACT_CONFIG.mailingAddress}</p>
           )}
-          {!PRIVACY_FEATURE_FLAGS.privacyRequestFormEnabled && (
+          {PRIVACY_FEATURE_FLAGS.privacyRequestFormEnabled ? (
+            <div className="pt-2">
+              <PrivacyRequestForm />
+            </div>
+          ) : (
             <p>
               Privacy request submission is not yet available through the website. Use the verified
               privacy contact method when it is published.
