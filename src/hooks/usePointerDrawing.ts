@@ -1,5 +1,8 @@
 import { useCallback, useRef } from 'react'
 import { CANVAS_HEIGHT, CANVAS_WIDTH, type DrawingTool } from '../types/drawing'
+import { floodFillArtwork } from '../utils/canvasFloodFill'
+import { sampleCompositeColor } from '../utils/canvasColor'
+import type { TemplateContentBounds } from '../utils/templateProcessing'
 
 interface Point {
   x: number
@@ -8,6 +11,8 @@ interface Point {
 
 interface UsePointerDrawingOptions {
   canvasRef: React.RefObject<HTMLCanvasElement | null>
+  templateCanvasRef?: React.RefObject<HTMLCanvasElement | null>
+  getTemplateBounds?: () => TemplateContentBounds | null
   tool: DrawingTool
   color: string
   brushSize: number
@@ -15,6 +20,7 @@ interface UsePointerDrawingOptions {
   onStrokeStart?: () => void
   onStrokeComplete?: () => void
   onDrawing?: () => void
+  onColorPick?: (color: string) => void
 }
 
 function getCanvasPoint(
@@ -30,34 +36,64 @@ function getCanvasPoint(
   }
 }
 
-function drawSegment(
+function isStrokeTool(tool: DrawingTool): tool is 'pen' | 'brush' | 'eraser' {
+  return tool === 'pen' || tool === 'brush' || tool === 'eraser'
+}
+
+function getStrokeWidth(tool: 'pen' | 'brush' | 'eraser', brushSize: number): number {
+  if (tool === 'pen') return Math.max(1, brushSize * 0.4)
+  if (tool === 'brush') return brushSize
+  return brushSize
+}
+
+function applyStrokeStyle(
   ctx: CanvasRenderingContext2D,
-  from: Point,
-  to: Point,
-  tool: DrawingTool,
+  tool: 'pen' | 'brush' | 'eraser',
   color: string,
   brushSize: number,
 ) {
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
-  ctx.lineWidth = brushSize
+  ctx.lineWidth = getStrokeWidth(tool, brushSize)
 
   if (tool === 'eraser') {
     ctx.globalCompositeOperation = 'destination-out'
     ctx.strokeStyle = 'rgba(0,0,0,1)'
-  } else {
-    ctx.globalCompositeOperation = 'source-over'
-    ctx.strokeStyle = color
+    ctx.fillStyle = 'rgba(0,0,0,1)'
+    return
   }
 
+  ctx.globalCompositeOperation = 'source-over'
+  ctx.strokeStyle = color
+  ctx.fillStyle = color
+
+  if (tool === 'brush') {
+    ctx.globalAlpha = 0.92
+  } else {
+    ctx.globalAlpha = 1
+  }
+}
+
+function drawSegment(
+  ctx: CanvasRenderingContext2D,
+  from: Point,
+  to: Point,
+  tool: 'pen' | 'brush' | 'eraser',
+  color: string,
+  brushSize: number,
+) {
+  applyStrokeStyle(ctx, tool, color, brushSize)
   ctx.beginPath()
   ctx.moveTo(from.x, from.y)
   ctx.lineTo(to.x, to.y)
   ctx.stroke()
+  ctx.globalAlpha = 1
 }
 
 export function usePointerDrawing({
   canvasRef,
+  templateCanvasRef,
+  getTemplateBounds,
   tool,
   color,
   brushSize,
@@ -65,6 +101,7 @@ export function usePointerDrawing({
   onStrokeStart,
   onStrokeComplete,
   onDrawing,
+  onColorPick,
 }: UsePointerDrawingOptions) {
   const isDrawingRef = useRef(false)
   const activeCanvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -84,8 +121,11 @@ export function usePointerDrawing({
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const { tool: t, color: c, brushSize: size } = settingsRef.current
-    drawSegment(ctx, last, point, t, c, size)
+    const { tool: activeTool, color: activeColor, brushSize: size } =
+      settingsRef.current
+    if (!isStrokeTool(activeTool)) return
+
+    drawSegment(ctx, last, point, activeTool, activeColor, size)
     lastPointRef.current = point
     pendingPointRef.current = null
   }, [canvasRef])
@@ -105,10 +145,43 @@ export function usePointerDrawing({
       const canvas = event.currentTarget
 
       event.preventDefault()
+
+      const point = getCanvasPoint(canvas, event.clientX, event.clientY)
+      const { tool: activeTool, color: activeColor } = settingsRef.current
+
+      if (activeTool === 'eyedropper') {
+        const picked = sampleCompositeColor(
+          canvas,
+          templateCanvasRef?.current ?? null,
+          point.x,
+          point.y,
+        )
+        if (picked) {
+          onColorPick?.(picked)
+        }
+        return
+      }
+
+      if (activeTool === 'fill') {
+        onStrokeStart?.()
+        onDrawing?.()
+        floodFillArtwork(
+          canvas,
+          templateCanvasRef?.current ?? null,
+          point.x,
+          point.y,
+          activeColor,
+          getTemplateBounds?.() ?? null,
+        )
+        onStrokeComplete?.()
+        return
+      }
+
+      if (!isStrokeTool(activeTool)) return
+
       canvas.setPointerCapture(event.pointerId)
       activeCanvasRef.current = canvas
 
-      const point = getCanvasPoint(canvas, event.clientX, event.clientY)
       isDrawingRef.current = true
       lastPointRef.current = point
       onStrokeStart?.()
@@ -116,16 +189,29 @@ export function usePointerDrawing({
 
       const ctx = canvas.getContext('2d')
       if (ctx) {
-        const { tool: t, color: c, brushSize: size } = settingsRef.current
-        ctx.globalCompositeOperation =
-          t === 'eraser' ? 'destination-out' : 'source-over'
-        ctx.fillStyle = t === 'eraser' ? 'rgba(0,0,0,1)' : c
+        const { brushSize: size } = settingsRef.current
+        applyStrokeStyle(ctx, activeTool, activeColor, size)
         ctx.beginPath()
-        ctx.arc(point.x, point.y, size / 2, 0, Math.PI * 2)
+        ctx.arc(
+          point.x,
+          point.y,
+          getStrokeWidth(activeTool, size) / 2,
+          0,
+          Math.PI * 2,
+        )
         ctx.fill()
+        ctx.globalAlpha = 1
       }
     },
-    [disabled, onDrawing, onStrokeStart],
+    [
+      disabled,
+      getTemplateBounds,
+      onColorPick,
+      onDrawing,
+      onStrokeComplete,
+      onStrokeStart,
+      templateCanvasRef,
+    ],
   )
 
   const handlePointerMove = useCallback(
@@ -160,7 +246,10 @@ export function usePointerDrawing({
       pendingPointRef.current = null
 
       const ctx = canvas.getContext('2d')
-      if (ctx) ctx.globalCompositeOperation = 'source-over'
+      if (ctx) {
+        ctx.globalCompositeOperation = 'source-over'
+        ctx.globalAlpha = 1
+      }
 
       onStrokeComplete?.()
     },

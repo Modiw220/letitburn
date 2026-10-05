@@ -14,7 +14,7 @@ export default function RelaxingDrawingPage({
   return (
     <>
       <Header theme={theme} onToggleTheme={onToggleTheme} />
-      <main className="content-container py-8 md:py-12">
+      <main className="content-container py-6 md:py-12">
         <DrawingWorkspace />
       </main>
       <Footer />

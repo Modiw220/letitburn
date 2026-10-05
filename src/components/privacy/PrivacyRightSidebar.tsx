@@ -18,7 +18,7 @@ export default function PrivacyRightSidebar({
       className={`privacy-right-sidebar ${layout === 'sidebar' ? 'hidden lg:block' : 'block lg:hidden'}`}
       aria-label="Privacy trust information"
     >
-      <div className="sticky top-[96px] space-y-4">
+      <div className="sticky top-[var(--scroll-offset)] space-y-4">
         <PrivacyTrustCard
           icon={
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-purple/15 text-accent-purple">

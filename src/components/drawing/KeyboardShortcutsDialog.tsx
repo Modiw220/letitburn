@@ -7,7 +7,10 @@ interface KeyboardShortcutsDialogProps {
 }
 
 const shortcuts = [
+  { keys: 'P', action: 'Pen' },
   { keys: 'B', action: 'Brush' },
+  { keys: 'F', action: 'Fill (coloring templates)' },
+  { keys: 'I', action: 'Eyedropper' },
   { keys: 'E', action: 'Eraser' },
   { keys: 'Ctrl/Cmd + Z', action: 'Undo' },
   { keys: 'Ctrl/Cmd + Shift + Z', action: 'Redo' },

@@ -4,7 +4,9 @@ import {
   CANVAS_WIDTH,
 } from '../types/drawing'
 
-const CANVAS_BG = '#FAF8F3'
+import { CANVAS_SURFACE_COLOR } from '../utils/canvasPixels'
+
+const CANVAS_BG = CANVAS_SURFACE_COLOR
 
 function setupCanvas(
   canvas: HTMLCanvasElement,
@@ -59,13 +61,20 @@ export function useDrawingCanvas() {
     return canvas.getContext('2d')
   }, [])
 
-  const clearArtwork = useCallback(() => {
-    const ctx = getArtworkContext()
-    if (!ctx) return
-    ctx.globalCompositeOperation = 'source-over'
-    ctx.fillStyle = CANVAS_BG
-    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-  }, [getArtworkContext])
+  const clearArtwork = useCallback(
+    (options?: { transparent?: boolean }) => {
+      const ctx = getArtworkContext()
+      if (!ctx) return
+      ctx.globalCompositeOperation = 'source-over'
+      if (options?.transparent) {
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+      } else {
+        ctx.fillStyle = CANVAS_BG
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+      }
+    },
+    [getArtworkContext],
+  )
 
   const clearTemplate = useCallback(() => {
     const ctx = getTemplateContext()

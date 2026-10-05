@@ -28,7 +28,7 @@ export default function TemplateGallery({
             Coloring templates
           </h2>
           <p className="mt-1 text-sm text-text-muted">
-            Choose a calming outline to color beneath your brushstrokes.
+            Choose a calming page to fill, pen, or brush with color.
           </p>
         </div>
         {selectedTemplateId && (

@@ -71,7 +71,7 @@ export default function BurnExperience() {
   const showWriting = stage === 'writing' || stage === 'confirming'
 
   return (
-    <div className="burn-page relative min-h-[calc(100vh-78px)]">
+    <div className="burn-page relative">
       <div className="burn-page-bg" aria-hidden="true">
         <EmberParticles count={5} />
       </div>
@@ -84,37 +84,35 @@ export default function BurnExperience() {
         {liveMessage}
       </div>
 
-      <div className="burn-page-content relative z-10 mx-auto max-w-[1200px] px-5 py-10 md:px-8 md:py-14 lg:py-16">
+      <div className="burn-page-content relative z-10 mx-auto max-w-[1200px] px-4 md:px-8">
         {showWriting && (
-          <header className="mx-auto mb-10 max-w-2xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-fire-orange">
-              Private Release Space
-            </p>
-            <h1 className="mt-4 font-heading text-3xl font-semibold text-text-main md:text-4xl lg:text-[42px]">
-              Write what you want to let go of.
-            </h1>
-            <p className="mt-4 text-base text-text-muted md:text-lg">
-              This space is yours. Write freely, without judgment.
-            </p>
+          <div className="burn-writing-viewport flex flex-col justify-center py-4 md:py-5">
+            <header className="mx-auto mb-4 max-w-3xl shrink-0 text-center md:mb-5">
+              <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-fire-orange md:text-xs">
+                Private Release Space
+              </p>
+              <h1 className="mt-2 font-heading text-2xl font-semibold text-text-main md:mt-3 md:text-3xl lg:text-[34px]">
+                Write what you want to let go of.
+              </h1>
+              <p className="mt-2 text-sm text-text-muted md:text-base">
+                This space is yours. Write freely, without judgment.
+              </p>
 
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-text-muted">
-              <span className="inline-flex items-center gap-1.5">
-                <Shield className="h-4 w-4 text-calm-cyan" aria-hidden="true" />
-                Anonymous
-              </span>
-              <span aria-hidden="true">·</span>
-              <span>No account needed</span>
-              <span aria-hidden="true">·</span>
-              <span>Your note is not saved</span>
-            </div>
-          </header>
-        )}
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-xs text-text-muted md:text-sm">
+                <span className="inline-flex items-center gap-1">
+                  <Shield className="h-3.5 w-3.5 text-calm-cyan" aria-hidden="true" />
+                  Anonymous
+                </span>
+                <span aria-hidden="true">·</span>
+                <span>No account needed</span>
+                <span aria-hidden="true">·</span>
+                <span>Your note is not saved</span>
+              </div>
+            </header>
 
-        <div className="mx-auto w-full max-w-[720px]">
-          {showWriting && (
-            <>
-              <div className="rounded-[28px] border border-border-card bg-bg-card/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:p-6">
-                <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-text-muted">
+            <div className="mx-auto w-full max-w-[680px] shrink min-h-0">
+              <div className="rounded-[24px] border border-border-card bg-bg-card/50 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:p-4">
+                <div className="mb-3 flex items-center justify-between gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2 text-xs text-text-muted md:text-sm">
                   <span>Write</span>
                   <span className="text-white/20" aria-hidden="true">→</span>
                   <span>Burn</span>
@@ -129,19 +127,19 @@ export default function BurnExperience() {
                   disabled={isBurnInProgress}
                 />
 
-                <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-                  <div id="burn-note-privacy" className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4">
-                    <PrivacyNotice />
+                <div className="mt-3 grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+                  <div id="burn-note-privacy" className="rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2.5">
+                    <PrivacyNotice compact />
                   </div>
 
-                  <div className="flex flex-col items-center gap-4 lg:items-end">
+                  <div className="flex flex-col items-stretch gap-2.5 md:items-end">
                     <button
                       type="button"
                       onClick={requestBurn}
                       disabled={isNoteEmpty || isBurnInProgress}
                       aria-disabled={isNoteEmpty || isBurnInProgress}
                       aria-describedby={isNoteEmpty ? 'burn-button-hint' : undefined}
-                      className="btn-primary-glow inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fire-orange to-bright-orange px-8 py-3.5 text-base font-semibold text-white transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none sm:w-auto"
+                      className="btn-primary-glow inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fire-orange to-bright-orange px-6 py-3 text-base font-semibold text-white transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none md:w-auto"
                     >
                       <Flame className="h-5 w-5" aria-hidden="true" />
                       Burn It
@@ -153,7 +151,7 @@ export default function BurnExperience() {
                       </p>
                     )}
 
-                    <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-end">
+                    <div className="flex flex-wrap items-center justify-center gap-3 md:justify-end">
                       <button
                         type="button"
                         onClick={() => setClearDialogOpen(true)}
@@ -171,9 +169,11 @@ export default function BurnExperience() {
                   </div>
                 </div>
               </div>
-            </>
-          )}
+            </div>
+          </div>
+        )}
 
+        <div className="mx-auto w-full max-w-[560px] py-6 md:py-8">
           {stage === 'burning' && burnSnapshot && (
             <BurningPaper
               text={burnSnapshot}
@@ -194,8 +194,8 @@ export default function BurnExperience() {
           )}
         </div>
 
-        {(showWriting || stage === 'complete') && (
-          <footer className="mx-auto mt-10 max-w-xl rounded-2xl border border-white/[0.08] bg-white/[0.02] px-5 py-5 text-center">
+        {stage === 'complete' && (
+          <footer className="mx-auto mt-8 max-w-xl rounded-2xl border border-white/[0.08] bg-white/[0.02] px-5 py-5 text-center">
             <p className="text-sm text-text-muted">
               Let It Burn is a reflection tool, not emergency support.
             </p>

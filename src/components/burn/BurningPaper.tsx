@@ -47,7 +47,7 @@ export default function BurningPaper({
 
   return (
     <div
-      className={`burn-paper-stage mx-auto w-full max-w-[680px] ${reducedMotion ? 'burn-paper-stage--reduced' : ''}`}
+      className={`burn-paper-stage mx-auto w-full max-w-[400px] ${reducedMotion ? 'burn-paper-stage--reduced' : ''}`}
       aria-hidden="true"
     >
       <div

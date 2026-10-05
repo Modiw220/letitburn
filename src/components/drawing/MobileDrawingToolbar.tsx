@@ -3,7 +3,10 @@ import {
   Eraser,
   MoreHorizontal,
   Paintbrush,
+  PaintBucket,
   Palette,
+  PenLine,
+  Pipette,
   Redo2,
   Ruler,
   Trash2,
@@ -30,6 +33,8 @@ interface MobileDrawingToolbarProps {
   onScrollToTemplates: () => void
   onShowShortcuts: () => void
   isExporting: boolean
+  coloringMode?: boolean
+  activeColor: string
 }
 
 export default function MobileDrawingToolbar({
@@ -48,6 +53,8 @@ export default function MobileDrawingToolbar({
   onScrollToTemplates,
   onShowShortcuts,
   isExporting,
+  coloringMode = false,
+  activeColor,
 }: MobileDrawingToolbarProps) {
   const sheetRef = useFocusTrap(moreOpen)
 
@@ -70,10 +77,25 @@ export default function MobileDrawingToolbar({
   return (
     <>
       <div
-        className="sticky bottom-0 z-20 -mx-1 flex items-center gap-2 overflow-x-auto border-t border-border-card bg-bg-secondary/95 px-1 py-2 backdrop-blur-md lg:hidden"
+        className="drawing-mobile-toolbar flex items-center gap-2 overflow-x-auto border-t border-border-card bg-bg-secondary/95 px-2 py-2 backdrop-blur-md lg:hidden"
         role="toolbar"
         aria-label="Mobile drawing tools"
       >
+        <span
+          className="h-9 w-9 shrink-0 rounded-full border border-white/20"
+          style={{ backgroundColor: activeColor }}
+          aria-label={`Active color ${activeColor}`}
+        />
+
+        <button
+          type="button"
+          className={btnClass(tool === 'pen')}
+          aria-label="Pen"
+          aria-pressed={tool === 'pen'}
+          onClick={() => onToolChange('pen')}
+        >
+          <PenLine className="h-5 w-5" />
+        </button>
         <button
           type="button"
           className={btnClass(tool === 'brush')}
@@ -82,6 +104,26 @@ export default function MobileDrawingToolbar({
           onClick={() => onToolChange('brush')}
         >
           <Paintbrush className="h-5 w-5" />
+        </button>
+        {coloringMode && (
+          <button
+            type="button"
+            className={btnClass(tool === 'fill')}
+            aria-label="Fill"
+            aria-pressed={tool === 'fill'}
+            onClick={() => onToolChange('fill')}
+          >
+            <PaintBucket className="h-5 w-5" />
+          </button>
+        )}
+        <button
+          type="button"
+          className={btnClass(tool === 'eyedropper')}
+          aria-label="Eyedropper"
+          aria-pressed={tool === 'eyedropper'}
+          onClick={() => onToolChange('eyedropper')}
+        >
+          <Pipette className="h-5 w-5" />
         </button>
         <button
           type="button"
@@ -113,7 +155,7 @@ export default function MobileDrawingToolbar({
         <button
           type="button"
           className={btnClass()}
-          aria-label="Color"
+          aria-label="Colors"
           onClick={onOpenColors}
         >
           <Palette className="h-5 w-5" />
@@ -150,7 +192,7 @@ export default function MobileDrawingToolbar({
             role="dialog"
             aria-modal="true"
             aria-label="More drawing options"
-            className="absolute inset-x-0 bottom-0 rounded-t-2xl border-t border-border-card bg-bg-secondary p-5 shadow-2xl"
+            className="absolute inset-x-0 bottom-0 rounded-t-2xl border-t border-border-card bg-bg-secondary p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] shadow-2xl"
           >
             <div className="mb-4 flex items-center justify-between">
               <h3 className="font-heading text-lg font-semibold text-text-main">

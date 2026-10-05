@@ -12,7 +12,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[520px] overflow-hidden md:min-h-[560px] lg:min-h-[600px]"
+      className="relative min-h-[420px] overflow-x-hidden md:min-h-[560px] lg:min-h-[600px]"
       aria-labelledby="hero-heading"
     >
       <div className="absolute inset-0" aria-hidden="true">
@@ -41,12 +41,12 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-bg-main/80 via-bg-main/20 via-40% to-transparent md:from-bg-main/60" />
       </div>
 
-      <div className="content-container relative z-10 flex min-h-[520px] items-center py-12 md:min-h-[560px] md:py-16 lg:min-h-[600px]">
-        <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,540px)_1fr] lg:gap-8 xl:gap-12">
+      <div className="content-container relative z-10 flex min-h-[420px] items-center py-8 md:min-h-[560px] md:py-16 lg:min-h-[600px]">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,540px)_1fr] lg:gap-8 xl:gap-12">
           <div className="max-w-xl lg:max-w-none">
             <h1
               id="hero-heading"
-              className="font-heading text-[48px] font-semibold leading-[1.05] tracking-tight md:text-[58px] lg:text-[72px]"
+              className="font-heading text-[36px] font-semibold leading-[1.05] tracking-tight sm:text-[48px] md:text-[58px] lg:text-[72px]"
             >
               <span className="block text-text-main">Write it.</span>
               <span className="block text-fire-orange">Burn it.</span>
@@ -55,11 +55,11 @@ export default function HeroSection() {
 
             <span className="hero-brush-underline" aria-hidden="true" />
 
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-text-muted md:text-[19px] lg:text-[21px]">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-text-muted md:mt-6 md:text-[19px] lg:text-[21px]">
               A private space to release thoughts, relax, and reflect.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-8">
               <Link
                 to="/burn-thoughts"
                 className="btn-primary-glow inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fire-orange to-bright-orange px-6 py-3.5 text-base font-semibold text-white transition-transform hover:-translate-y-0.5"
@@ -93,7 +93,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="relative hidden justify-center lg:flex lg:justify-end">
+          <div className="relative hidden w-full min-w-0 justify-center lg:flex lg:justify-end">
             <HeroBurningNoteVisual />
           </div>
         </div>

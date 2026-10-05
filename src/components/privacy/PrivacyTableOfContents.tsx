@@ -13,7 +13,7 @@ export default function PrivacyTableOfContents({
 }: PrivacyTableOfContentsProps) {
   return (
     <aside className="privacy-toc hidden xl:block" aria-label="On this page">
-      <div className="privacy-toc-panel sticky top-[96px]">
+      <div className="privacy-toc-panel sticky top-[var(--scroll-offset)]">
         <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-text-muted">
           On this page
         </h2>

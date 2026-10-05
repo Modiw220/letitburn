@@ -12,7 +12,7 @@ export default function BrushSizeControl({
   return (
     <div className="space-y-4">
       <p className="text-xs font-medium uppercase tracking-wider text-text-muted">
-        Brush size
+        Brush & pen size
       </p>
 
       <div className="flex flex-wrap items-end gap-2">

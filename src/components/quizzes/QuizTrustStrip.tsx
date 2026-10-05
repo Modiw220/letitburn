@@ -18,7 +18,7 @@ export default function QuizTrustStrip() {
         Quiz trust information
       </h2>
 
-      <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-6">
         {trustItems.map(({ icon: Icon, label }) => (
           <li key={label} className="flex flex-col items-center text-center sm:flex-row sm:text-left">
             <span className="mb-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-calm-cyan sm:mb-0 sm:mr-3">

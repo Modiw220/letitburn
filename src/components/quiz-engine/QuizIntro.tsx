@@ -26,7 +26,7 @@ export default function QuizIntro() {
             {definition.introDescription}
           </p>
 
-          <ul className="mt-6 grid grid-cols-2 gap-3 text-sm text-text-muted md:grid-cols-4">
+          <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-text-muted sm:grid-cols-2 md:grid-cols-4 md:gap-3">
             <li className="inline-flex items-center gap-2">
               <Clock className="h-4 w-4 text-calm-cyan" aria-hidden="true" />
               About {definition.estimatedMinutes} minutes

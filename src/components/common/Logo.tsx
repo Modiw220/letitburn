@@ -1,5 +1,5 @@
-import { Flame } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import logoImage from '../../assets/let-it-burn-logo.png'
 
 interface LogoProps {
   className?: string
@@ -13,12 +13,12 @@ export default function Logo({ className = '', showTagline = true }: LogoProps) 
       className={`group inline-flex min-w-0 items-center gap-2.5 no-underline focus-visible:rounded-lg sm:gap-3 ${className}`}
       aria-label="Let It Burn — Home"
     >
-      <span
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/25 transition-colors group-hover:border-fire-orange/60 sm:h-11 sm:w-11"
+      <img
+        src={logoImage}
+        alt=""
+        className="h-10 w-10 shrink-0 object-contain mix-blend-lighten sm:h-11 sm:w-11"
         aria-hidden="true"
-      >
-        <Flame className="h-5 w-5 text-fire-orange" strokeWidth={1.75} />
-      </span>
+      />
       <span className="flex min-w-0 flex-col">
         <span className="truncate font-heading text-base font-semibold leading-tight tracking-tight text-text-main sm:text-lg">
           Let It Burn

@@ -31,6 +31,7 @@ export default function TemplateCard({
           alt=""
           className="max-h-full max-w-full object-contain"
           aria-hidden="true"
+          data-pin-nopin="true"
         />
       </div>
       <div className="flex flex-1 flex-col p-4">

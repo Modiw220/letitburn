@@ -21,7 +21,7 @@ export default function SupportSection() {
       aria-labelledby="support-heading"
     >
       <div className="relative overflow-hidden rounded-[28px] border border-border-card bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(10,22,38,0.72))] px-6 py-8 md:px-10 md:py-10">
-        <div className="decorative-heart-line" aria-hidden="true">
+        <div className="decorative-heart-line hidden md:block" aria-hidden="true">
           <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
             <path d="M40 65 C20 45, 5 30, 20 15 C30 8, 40 18, 40 18 C40 18, 50 8, 60 15 C75 30, 60 45, 40 65Z" />
           </svg>

@@ -22,9 +22,9 @@ const WritingPaper = forwardRef<HTMLTextAreaElement, WritingPaperProps>(
     }, [ref])
 
     return (
-      <div className="writing-paper mx-auto w-full max-w-[680px]">
+      <div className="writing-paper mx-auto w-full">
         <p
-          className="writing-paper-prompt font-handwriting text-[15px] text-[#6B5A45]"
+          className="writing-paper-prompt font-handwriting text-[13px] text-[#6B5A45]"
           aria-hidden="true"
         >
           Today, I choose to release…
@@ -47,8 +47,8 @@ const WritingPaper = forwardRef<HTMLTextAreaElement, WritingPaperProps>(
           spellCheck
           aria-labelledby={labelId}
           aria-describedby="burn-note-privacy"
-          className="writing-paper-textarea font-handwriting mt-3 w-full resize-none bg-transparent text-[#2A241D] outline-none placeholder:text-[#8A7968]"
-          rows={12}
+          className="writing-paper-textarea font-handwriting mt-2 w-full resize-none bg-transparent text-[#2A241D] outline-none placeholder:text-[#8A7968]"
+          rows={6}
         />
 
         {showCounter && (

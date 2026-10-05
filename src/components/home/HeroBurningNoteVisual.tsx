@@ -1,12 +1,49 @@
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import burningNoteVisual from '../../assets/hero-burning-note-bowl.png'
+import burningNotePng from '../../assets/hero-burning-note-bowl.png'
+
+const burningNoteWebp = Object.values(
+  import.meta.glob<string>('../../assets/hero-burning-note-bowl.webp', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }),
+)[0]
+
+const heroBurnImageClassName = 'hero-burning-note-img'
+
+function HeroBurnMedia() {
+  if (burningNoteWebp) {
+    return (
+      <picture className="hero-burning-note-media">
+        <source srcSet={burningNoteWebp} type="image/webp" />
+        <img
+          src={burningNotePng}
+          alt=""
+          className={heroBurnImageClassName}
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
+    )
+  }
+
+  return (
+    <img
+      src={burningNotePng}
+      alt=""
+      className={heroBurnImageClassName}
+      loading="eager"
+      decoding="async"
+    />
+  )
+}
 
 export default function HeroBurningNoteVisual() {
   const reducedMotion = useReducedMotion()
 
   return (
     <div
-      className={`hero-burning-note-visual relative mx-auto w-full max-w-[420px] ${
+      className={`hero-burning-note-visual relative mx-auto w-full max-w-[min(100%,540px)] ${
         reducedMotion ? 'hero-burning-note-visual--reduced' : ''
       }`}
       aria-hidden="true"
@@ -14,12 +51,7 @@ export default function HeroBurningNoteVisual() {
       <div className="hero-burning-note-glow pointer-events-none absolute inset-0 scale-110" />
 
       <div className="hero-burning-note-stage relative">
-        <img
-          src={burningNoteVisual}
-          alt=""
-          className="hero-burning-note-img relative z-[1] h-auto max-h-[min(440px,52vh)] w-full object-contain"
-          loading="eager"
-        />
+        <HeroBurnMedia />
 
         <span className="hero-burning-note-ember hero-burning-note-ember--1" />
         <span className="hero-burning-note-ember hero-burning-note-ember--2" />

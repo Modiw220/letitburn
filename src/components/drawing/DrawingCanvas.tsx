@@ -36,7 +36,13 @@ export default function DrawingCanvas({
       <div className="drawing-surface relative overflow-hidden rounded-xl border border-[#E8E2D6] bg-[#FAF8F3] shadow-inner">
         <canvas
           ref={artworkRef}
-          className="drawing-canvas-layer block w-full touch-none"
+          className={`drawing-canvas-layer block w-full touch-none ${
+            tool === 'eyedropper'
+              ? 'cursor-cell'
+              : tool === 'fill'
+                ? 'cursor-crosshair'
+                : 'cursor-crosshair'
+          }`}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -62,7 +68,7 @@ export default function DrawingCanvas({
           </div>
         )}
 
-        {showCursor && cursorPosition && (
+        {showCursor && cursorPosition && tool !== 'fill' && tool !== 'eyedropper' && (
           <div
             className="pointer-events-none absolute z-10 hidden rounded-full border-2 border-text-main/40 md:block"
             style={{

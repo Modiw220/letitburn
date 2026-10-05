@@ -43,9 +43,10 @@ function formatFilename() {
 export default function DrawingWorkspace() {
   const reducedMotion = useReducedMotion()
   const templateGalleryRef = useRef<HTMLDivElement>(null)
+  const canvasSectionRef = useRef<HTMLElement>(null)
 
   const [mode, setMode] = useState<DrawingMode>('blank')
-  const [tool, setTool] = useState<DrawingTool>('brush')
+  const [tool, setTool] = useState<DrawingTool>('pen')
   const [color, setColor] = useState(DEFAULT_COLOR)
   const [customColor, setCustomColor] = useState(DEFAULT_COLOR)
   const [brushSize, setBrushSize] = useState(DEFAULT_BRUSH_SIZE)
@@ -101,12 +102,25 @@ export default function DrawingWorkspace() {
     setHasArtwork(true)
   }, [pushSnapshot])
 
+  const handleColorPick = useCallback(
+    (pickedColor: string) => {
+      setColor(pickedColor)
+      setCustomColor(pickedColor)
+      setTool(mode === 'template' ? 'fill' : 'pen')
+      announce(`Color picked: ${pickedColor}`)
+    },
+    [announce, mode],
+  )
+
   const pointer = usePointerDrawing({
     canvasRef: artworkRef,
+    templateCanvasRef: templateRef,
+    getTemplateBounds: templateApi.getTemplateBounds,
     tool,
     color,
     brushSize,
     onStrokeComplete: handleStrokeComplete,
+    onColorPick: handleColorPick,
   })
 
   const pointerRef = useRef(pointer)
@@ -131,11 +145,12 @@ export default function DrawingWorkspace() {
   const applyModeChange = useCallback(
     async (nextMode: DrawingMode) => {
       setMode(nextMode)
+      setTool(nextMode === 'template' ? 'fill' : 'pen')
       if (nextMode === 'blank') {
         setSelectedTemplateId(null)
         templateApi.removeTemplate()
       }
-      clearArtwork()
+      clearArtwork({ transparent: nextMode === 'template' })
       resetHistory()
       setHasArtwork(false)
       setPendingMode(null)
@@ -164,11 +179,23 @@ export default function DrawingWorkspace() {
         setToastMessage('This template could not be loaded.')
         return
       }
+
+      clearArtwork({ transparent: true })
+      resetHistory()
+      setHasArtwork(false)
       setSelectedTemplateId(template.id)
       setMode('template')
+      setTool('fill')
       announce('Template selected')
+
+      window.requestAnimationFrame(() => {
+        canvasSectionRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+      })
     },
-    [announce, templateApi],
+    [announce, clearArtwork, resetHistory, templateApi],
   )
 
   const handleRemoveTemplate = useCallback(() => {
@@ -209,12 +236,12 @@ export default function DrawingWorkspace() {
   }, [hasArtwork, performDownload, selectedTemplateId])
 
   const handleClear = useCallback(() => {
-    clearArtwork()
+    clearArtwork({ transparent: mode === 'template' })
     pushSnapshot()
     setHasArtwork(false)
     setClearDialogOpen(false)
     announce('Canvas cleared')
-  }, [announce, clearArtwork, pushSnapshot])
+  }, [announce, clearArtwork, mode, pushSnapshot])
 
   const handleUndo = useCallback(() => {
     if (undo()) announce('Undo completed')
@@ -241,9 +268,20 @@ export default function DrawingWorkspace() {
 
       const mod = event.metaKey || event.ctrlKey
 
-      if (event.key === 'b' || event.key === 'B') {
+      if (event.key === 'p' || event.key === 'P') {
+        setTool('pen')
+        announce('Pen selected')
+      } else if (event.key === 'b' || event.key === 'B') {
         setTool('brush')
         announce('Brush selected')
+      } else if (event.key === 'f' || event.key === 'F') {
+        if (mode === 'template') {
+          setTool('fill')
+          announce('Fill selected')
+        }
+      } else if (event.key === 'i' || event.key === 'I') {
+        setTool('eyedropper')
+        announce('Eyedropper selected')
       } else if (event.key === 'e' || event.key === 'E') {
         setTool('eraser')
         announce('Eraser selected')
@@ -271,6 +309,7 @@ export default function DrawingWorkspace() {
     handleDownload,
     handleRedo,
     handleUndo,
+    mode,
     newCanvasDialogOpen,
     shortcutsOpen,
     showLeaveDialog,
@@ -327,14 +366,14 @@ export default function DrawingWorkspace() {
         {statusMessage}
       </div>
 
-      <header className="mx-auto mb-8 max-w-2xl text-center">
+      <header className="mx-auto mb-6 max-w-2xl text-center md:mb-8">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent-purple">
           Creative Reset
         </p>
-        <h1 className="drawing-intro-heading relative mt-4 font-heading text-3xl font-semibold text-text-main md:text-4xl lg:text-[42px]">
+        <h1 className="drawing-intro-heading relative mt-3 font-heading text-2xl font-semibold text-text-main sm:text-3xl md:mt-4 md:text-4xl lg:text-[42px]">
           Slow down and create.
         </h1>
-        <p className="mt-4 text-base text-text-muted md:text-lg">
+        <p className="mt-3 text-sm text-text-muted md:mt-4 md:text-lg">
           Draw freely, color a calming template, or simply follow wherever your
           hand takes you.
         </p>
@@ -371,7 +410,10 @@ export default function DrawingWorkspace() {
         </div>
       </section>
 
-      <section className="drawing-workspace rounded-[20px] border border-border-card bg-bg-card/80 p-4 shadow-[0_0_40px_rgba(154,104,245,0.08)] md:p-6">
+      <section
+        ref={canvasSectionRef}
+        className="drawing-workspace drawing-workspace--mobile-padded scroll-mt-[calc(var(--header-height)+12px)] rounded-[20px] border border-border-card bg-bg-card/80 p-3 shadow-[0_0_40px_rgba(154,104,245,0.08)] md:p-6"
+      >
         {(mobilePanel === 'colors' || mobilePanel === 'sizes') && (
           <div className="mb-4 rounded-2xl border border-border-card bg-bg-secondary/80 p-4 lg:hidden">
             {mobilePanel === 'colors' ? (
@@ -402,6 +444,8 @@ export default function DrawingWorkspace() {
               onClear={() => setClearDialogOpen(true)}
               onDownload={handleDownload}
               isExporting={isExporting}
+              coloringMode={mode === 'template'}
+              activeColor={color}
             />
           </aside>
 
@@ -463,6 +507,8 @@ export default function DrawingWorkspace() {
               }
               onShowShortcuts={() => setShortcutsOpen(true)}
               isExporting={isExporting}
+              coloringMode={mode === 'template'}
+              activeColor={color}
             />
           </div>
 

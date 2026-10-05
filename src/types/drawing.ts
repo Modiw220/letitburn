@@ -1,6 +1,6 @@
 export type DrawingMode = 'blank' | 'template'
 
-export type DrawingTool = 'brush' | 'eraser'
+export type DrawingTool = 'pen' | 'brush' | 'eraser' | 'fill' | 'eyedropper'
 
 export type WorkspaceStatus = 'ready' | 'drawing' | 'exporting' | 'error'
 
@@ -31,6 +31,6 @@ export const CANVAS_WIDTH = 1200
 export const CANVAS_HEIGHT = 900
 export const MAX_HISTORY = 30
 
-export const BRUSH_PRESETS = [4, 8, 14, 22, 36] as const
-export const DEFAULT_BRUSH_SIZE = 14
+export const BRUSH_PRESETS = [2, 4, 8, 14, 22, 36] as const
+export const DEFAULT_BRUSH_SIZE = 8
 export const DEFAULT_COLOR = '#8C6BE8'

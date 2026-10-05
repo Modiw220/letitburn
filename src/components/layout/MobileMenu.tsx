@@ -37,7 +37,7 @@ export default function MobileMenu({
 
       <nav
         id="mobile-nav"
-        className={`fixed inset-x-0 top-[78px] z-50 max-h-[calc(100vh-78px)] overflow-y-auto border-b border-border-card bg-bg-secondary/98 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+        className={`fixed inset-x-0 top-[var(--header-height)] z-50 max-h-[calc(100dvh-var(--header-height))] overflow-y-auto border-b border-border-card bg-bg-secondary/98 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
           isOpen ? 'translate-y-0' : '-translate-y-full pointer-events-none'
         }`}
         aria-label="Mobile navigation"
@@ -77,7 +77,7 @@ export function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
   return (
     <button
       type="button"
-      className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-text-muted transition-colors hover:text-text-main lg:hidden"
+      className="flex min-h-[44px] min-w-[44px] items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium text-text-muted transition-colors hover:text-text-main lg:hidden"
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-controls="mobile-nav"

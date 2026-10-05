@@ -27,6 +27,18 @@
 }
 
 @layer base {
+  :root {
+    --header-height: 72px;
+    --scroll-offset: 84px;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --header-height: 78px;
+      --scroll-offset: 96px;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -92,7 +104,7 @@
 
   .page-shell {
     position: relative;
-    min-height: calc(100vh - 78px);
+    min-height: calc(100vh - var(--header-height));
   }
 
   .page-shell--discovery::before,
@@ -176,7 +188,7 @@
   /* Writing paper */
   .writing-paper {
     position: relative;
-    padding: 28px 32px 24px;
+    padding: 16px 20px 14px;
     background-color: #f3e8d1;
     background-image:
       repeating-linear-gradient(
@@ -199,21 +211,71 @@
   }
 
   .writing-paper-textarea {
-    min-height: 280px;
-    line-height: 2;
-    font-size: 22px;
+    min-height: 132px;
+    line-height: 1.85;
+    font-size: 17px;
   }
 
   @media (min-width: 768px) {
     .writing-paper-textarea {
-      min-height: 320px;
+      min-height: 156px;
+      font-size: 18px;
     }
+  }
+
+  .burn-page {
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  .burn-writing-viewport {
+    min-height: calc(100dvh - var(--header-height));
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-height: 700px) {
+    .burn-writing-viewport {
+      justify-content: flex-start;
+    }
+
+    .burn-writing-viewport header h1 {
+      font-size: 1.375rem;
+      line-height: 1.2;
+    }
+
+    .burn-writing-viewport .writing-paper-textarea {
+      min-height: 108px;
+      font-size: 16px;
+    }
+  }
+
+  .drawing-mobile-toolbar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .drawing-workspace--mobile-padded {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  @media (min-width: 1024px) {
+    .drawing-workspace--mobile-padded {
+      padding-bottom: 0;
+    }
+  }
+
+  .mobile-safe-bottom {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
   }
 
   /* Burning animation */
   .burn-paper-stage {
     perspective: 800px;
-    min-height: 380px;
+    min-height: 320px;
   }
 
   .burn-paper {
@@ -225,7 +287,7 @@
   .burn-paper-text {
     position: relative;
     z-index: 1;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 2;
     animation: burn-text-vanish var(--burn-duration, 5500ms) ease-in forwards;
   }
@@ -541,6 +603,8 @@
 
   .hero-burning-note-visual {
     position: relative;
+    overflow: visible;
+    padding-bottom: 1rem;
   }
 
   .hero-burning-note-glow {
@@ -549,12 +613,32 @@
   }
 
   .hero-burning-note-stage {
+    display: flex;
+    justify-content: center;
+    overflow: visible;
     animation: hero-burning-note-float 5s ease-in-out infinite;
   }
 
+  .hero-burning-note-media {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
   .hero-burning-note-img {
-    mix-blend-mode: screen;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(400px, 54vh);
+    object-fit: contain;
+    object-position: center;
     animation: hero-burning-note-flicker 2.8s ease-in-out infinite;
+  }
+
+  @media (min-width: 1280px) {
+    .hero-burning-note-img {
+      max-height: min(480px, 58vh);
+    }
   }
 
   .hero-burning-note-ember {
@@ -578,26 +662,22 @@
   .hero-burning-note-ember--6 { top: 22%; left: 48%; animation-delay: 3.4s; }
 
   @keyframes hero-burning-note-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    0%, 100% { transform: translateY(-4px); }
+    50% { transform: translateY(-10px); }
   }
 
   @keyframes hero-burning-note-flicker {
     0%, 100% {
       filter: brightness(1) saturate(1);
-      transform: scale(1);
     }
     25% {
       filter: brightness(1.1) saturate(1.08);
-      transform: scale(1.008);
     }
     50% {
       filter: brightness(0.96) saturate(1.04);
-      transform: scale(0.996);
     }
     75% {
       filter: brightness(1.06) saturate(1.1);
-      transform: scale(1.004);
     }
   }
 
@@ -658,6 +738,12 @@
   /* Drawing page */
   .drawing-page {
     position: relative;
+  }
+
+  @media (max-width: 1023px) {
+    .drawing-page {
+      padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+    }
   }
 
   .drawing-page-glow {
@@ -1087,7 +1173,7 @@
   }
 
   .about-anchor-section {
-    scroll-margin-top: 96px;
+    scroll-margin-top: var(--scroll-offset);
   }
 
   .about-pull-quote {
@@ -1283,7 +1369,7 @@
 
   .privacy-anchor-section,
   .privacy-accordion-item {
-    scroll-margin-top: 96px;
+    scroll-margin-top: var(--scroll-offset);
   }
 
   .privacy-highlight {
@@ -1406,7 +1492,7 @@
   }
 
   .pricing-anchor-section {
-    scroll-margin-top: 96px;
+    scroll-margin-top: var(--scroll-offset);
   }
 
   .pricing-table {

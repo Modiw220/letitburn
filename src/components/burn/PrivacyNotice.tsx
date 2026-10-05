@@ -1,6 +1,24 @@
 import { Lock } from 'lucide-react'
 
-export default function PrivacyNotice() {
+interface PrivacyNoticeProps {
+  compact?: boolean
+}
+
+export default function PrivacyNotice({ compact = false }: PrivacyNoticeProps) {
+  if (compact) {
+    return (
+      <div className="text-left">
+        <p className="inline-flex items-start gap-2 text-xs leading-relaxed text-text-muted md:text-sm">
+          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-calm-cyan" aria-hidden="true" />
+          <span>
+            Your note stays in this tab only and is cleared when burned. Nothing is saved or
+            sent anywhere.
+          </span>
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="mx-auto max-w-lg text-center">
       <p className="inline-flex items-center justify-center gap-2 text-sm text-text-muted">

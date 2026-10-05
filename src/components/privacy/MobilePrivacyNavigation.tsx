@@ -13,7 +13,7 @@ export default function MobilePrivacyNavigation({
     privacySections.find((section) => section.id === activeSection)?.title ?? 'Jump to a section'
 
   return (
-    <div className="privacy-mobile-nav sticky top-[78px] z-20 -mx-[var(--spacing-section-x-mobile)] border-b border-white/10 bg-bg-main/95 px-[var(--spacing-section-x-mobile)] py-3 backdrop-blur-md xl:hidden">
+    <div className="privacy-mobile-nav sticky top-[var(--header-height)] z-20 -mx-[var(--spacing-section-x-mobile)] border-b border-white/10 bg-bg-main/95 px-[var(--spacing-section-x-mobile)] py-3 backdrop-blur-md xl:hidden">
       <label htmlFor="privacy-section-select" className="sr-only">
         Jump to a section
       </label>

@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react'
-import { drawingColors } from '../../data/drawingColors'
+import { drawingColors, lightDrawingColorValues } from '../../data/drawingColors'
 
 interface ColorPaletteProps {
   selectedColor: string
@@ -19,7 +19,7 @@ export default function ColorPalette({
       <p className="text-xs font-medium uppercase tracking-wider text-text-muted">
         Colors
       </p>
-      <div className="grid grid-cols-4 gap-2 sm:grid-cols-4">
+      <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
         {drawingColors.map((color) => {
           const isSelected = selectedColor === color.value
           return (
@@ -43,10 +43,9 @@ export default function ColorPalette({
                 <Check
                   className="h-4 w-4"
                   style={{
-                    color:
-                      color.value === '#FFFFFF' || color.value === '#F6C85F'
-                        ? '#2F3542'
-                        : '#FFFFFF',
+                    color: lightDrawingColorValues.has(color.value)
+                      ? '#2F3542'
+                      : '#FFFFFF',
                   }}
                   aria-hidden="true"
                 />
